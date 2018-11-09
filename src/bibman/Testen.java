@@ -24,7 +24,7 @@ public class Testen {
 		manager1.hinzufuegen(buch1);
 		manager1.hinzufuegen(artikel1);
 		manager1.hinzufuegen(webseite1);
-		manager1.hinzufuegen(new Buch("Vorname Nachname", "Buch Titel", 2018, "Verlag", "ISBN-Zahlen"));
+		manager1.hinzufuegen(new Buch("Vorname Nachname", "Buch Titel", 2018, "Verlagsname", "ISBN-Zahlen"));
 		
 		manager1.druckeAlleEintraege();
 		System.out.println("\nDer neueste Eintrag ist vom Jahr " + manager1.sucheNeuestenEintrag() + ".");
