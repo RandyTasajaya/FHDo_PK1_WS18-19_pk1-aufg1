@@ -1,6 +1,6 @@
 package bibman;
 
-public class Artikel extends BibEintrag {
+public class Artikel extends BibEintrag implements Primaerquelle {
 
 	private String zeitschrift;
 	private int ausgabe;
@@ -9,6 +9,25 @@ public class Artikel extends BibEintrag {
 		super(autor, titel, jahr);
 		this.zeitschrift = zeitschrift;
 		this.ausgabe = ausgabe;
+	}
+	
+	public boolean isWebseite() {
+		return false;
+	}
+	
+	public boolean isBuch() {
+		return false;
+	}
+	
+	public void druckeEintrag() {
+		int realId = getId() + 1;
+		System.out.println("[ID " + realId + "] " + getAutor() + ": \"" + getTitel() + "\". In: \"" + 
+				getZeitschrift() + "\" (Ausgabe " + getAusgabe() + "), " + getJahr());
+	}
+	
+	public String erzeugeZitierschluessel() {
+		String str = getAutor().replaceAll("\\s+", "");
+		return str + getJahr() + "-" + getAusgabe();
 	}
 
 	public String getZeitschrift() {
@@ -25,10 +44,5 @@ public class Artikel extends BibEintrag {
 
 	public void setAusgabe(int ausgabe) {
 		this.ausgabe = ausgabe;
-	}
-
-	public void druckeEintrag() {
-		System.out.println("[ID " + getId() + "] " + getAutor() + ": \"" + getTitel() + "\". In: \"" + 
-				getZeitschrift() + "\" (Ausgabe " + getAusgabe() + "), " + getJahr());
 	}
 }

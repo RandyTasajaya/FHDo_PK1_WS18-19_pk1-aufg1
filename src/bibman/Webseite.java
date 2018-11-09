@@ -8,17 +8,26 @@ public class Webseite extends BibEintrag {
 		super(autor, titel, jahr);
 		this.url = url;
 	}
+	
+	public boolean isWebseite() {
+		return true;
+	}
 
+	public boolean isBuch() {
+		return false;
+	}
+	
+	public void druckeEintrag() {
+		int realId = getId() + 1;
+		System.out.println("[ID " + realId + "] " + getAutor() + ": \"" + getTitel() + "\", " + getJahr() + 
+				". URL: " + getUrl());
+	}
+	
 	public String getUrl() {
 		return url;
 	}
 
 	public void setUrl(String url) {
 		this.url = url;
-	}
-
-	public void druckeEintrag() {
-		System.out.println("[ID " + getId() + "] " + getAutor() + ": \"" + getTitel() + "\", " + getJahr() + 
-				". URL: " + getUrl());
 	}
 }

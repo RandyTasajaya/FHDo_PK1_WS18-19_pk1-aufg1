@@ -12,12 +12,21 @@ public abstract class BibEintrag {
 	private static int idHelper;
 
 	public BibEintrag(String autor, String titel, int jahr) {
-		id = ++idHelper;
+		id = idHelper++;
 		this.autor = autor;
 		this.titel = titel;
 		this.jahr = jahr;
 	}
 
+	public abstract boolean isWebseite();
+	public abstract boolean isBuch();
+	public abstract void druckeEintrag();
+
+	public int berechneAlter() {
+		LocalDate currentDate = LocalDate.now();
+		return currentDate.getYear() - jahr;
+	}
+	
 	public int getId() {
 		return id;
 	}
@@ -45,11 +54,4 @@ public abstract class BibEintrag {
 	public void setJahr(int jahr) {
 		this.jahr = jahr;
 	}
-
-	public int berechneAlter() {
-		LocalDate currentDate = LocalDate.now();
-		return currentDate.getYear() - jahr;
-	}
-
-	public abstract void druckeEintrag();
 }
