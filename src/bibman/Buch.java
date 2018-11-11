@@ -5,7 +5,7 @@ public class Buch extends BibEintrag implements Primaerquelle {
 	private String verlag;
 	private String isbn;
 
-	public Buch(String autor, String titel, int jahr, String verlag, String isbn) {
+	public Buch(Autor autor, String titel, int jahr, String verlag, String isbn) {
 		super(autor, titel, jahr);
 		this.verlag = verlag;
 		this.isbn = isbn;
@@ -21,12 +21,12 @@ public class Buch extends BibEintrag implements Primaerquelle {
 	
 	public void druckeEintrag() {
 		int realId = getId() + 1;
-		System.out.println("[ID " + realId + "] " + getAutor() + ": \"" + getTitel() + "\". " + getVerlag()
+		System.out.println("[ID " + realId + "] " + getAutor().getFullname() + ": \"" + getTitel() + "\". " + getVerlag()
 				+ ", " + getJahr() + " (ISBN: " + getIsbn() + ")");
 	}
 	
 	public String erzeugeZitierschluessel() {
-		String str = getAutor().replaceAll("\\s+", "");
+		String str = getAutor().getFullname().replaceAll("\\s+", "");
 		return str + getJahr();
 	}
 

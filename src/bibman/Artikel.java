@@ -5,7 +5,7 @@ public class Artikel extends BibEintrag implements Primaerquelle {
 	private String zeitschrift;
 	private int ausgabe;
 
-	public Artikel(String autor, String titel, int jahr, String zeitschrift, int ausgabe) {
+	public Artikel(Autor autor, String titel, int jahr, String zeitschrift, int ausgabe) {
 		super(autor, titel, jahr);
 		this.zeitschrift = zeitschrift;
 		this.ausgabe = ausgabe;
@@ -21,12 +21,12 @@ public class Artikel extends BibEintrag implements Primaerquelle {
 	
 	public void druckeEintrag() {
 		int realId = getId() + 1;
-		System.out.println("[ID " + realId + "] " + getAutor() + ": \"" + getTitel() + "\". In: \"" + 
+		System.out.println("[ID " + realId + "] " + getAutor().getFullname() + ": \"" + getTitel() + "\". In: \"" + 
 				getZeitschrift() + "\" (Ausgabe " + getAusgabe() + "), " + getJahr());
 	}
 	
 	public String erzeugeZitierschluessel() {
-		String str = getAutor().replaceAll("\\s+", "");
+		String str = getAutor().getFullname().replaceAll("\\s+", "");
 		return str + getJahr() + "-" + getAusgabe();
 	}
 

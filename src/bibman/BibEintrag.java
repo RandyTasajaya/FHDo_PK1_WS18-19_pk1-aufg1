@@ -5,13 +5,13 @@ import java.time.LocalDate;
 public abstract class BibEintrag {
 	
 	private int id;			// {readOnly} = keine setId-Methode
-	private String autor;
+	private Autor autor;
 	private String titel;
 	private int jahr;
 
 	private static int idHelper;
 
-	public BibEintrag(String autor, String titel, int jahr) {
+	public BibEintrag(Autor autor, String titel, int jahr) {
 		id = idHelper++;
 		this.autor = autor;
 		this.titel = titel;
@@ -31,11 +31,11 @@ public abstract class BibEintrag {
 		return id;
 	}
 
-	public String getAutor() {
+	public Autor getAutor() {
 		return autor;
 	}
 
-	public void setAutor(String autor) {
+	public void setAutor(Autor autor) {
 		this.autor = autor;
 	}
 

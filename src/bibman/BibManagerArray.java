@@ -1,29 +1,33 @@
 package bibman;
 
-import java.util.*;
+public class BibManagerArray {
 
-public class BibManager {
+	private BibEintrag[] bibEintraege;
 	
-	private List<BibEintrag> bibEintraege;
-		
-	public BibManager() {
-		bibEintraege = new ArrayList<>();
+	public static byte index;
+	
+	public BibManagerArray(int zahlEintraege) {
+		bibEintraege = new BibEintrag[zahlEintraege];
 	}
 	
-	public int getSize() {
-		return bibEintraege.size();
+	public int getIndex() {
+		return index;
 	}
 	
-	public List<BibEintrag> getBibEintraege() {
+	public BibEintrag[] getBibEintraege() {
 		return bibEintraege;
 	}
 	
 	public BibEintrag getEintrag(int index) {
-		return bibEintraege.get(index);
+		return bibEintraege[index];
 	}
 	
 	public void hinzufuegen(BibEintrag eintrag) {
-		bibEintraege.add(eintrag);
+		if(bibEintraege[bibEintraege.length-1] != null) {
+			System.out.println("BibEintrag ist bereits voll!");
+		} else {
+			bibEintraege[index++] = eintrag;
+		}
 	}
 	
 	public void druckeAlleEintraege() {
@@ -33,32 +37,25 @@ public class BibManager {
 	}
 	
 	public int sucheNeuestenEintrag() {
-		int result = bibEintraege.get(0).getJahr();
+		int result = bibEintraege[0].getJahr();
 		
-		Iterator<BibEintrag> it = bibEintraege.iterator();
-		while(it.hasNext()) {
-			BibEintrag eintrag = it.next();
-			if(eintrag.getJahr() > result) {
-				result = eintrag.getJahr();
+		for(int i = 0; i < bibEintraege.length; i++) {
+			if(bibEintraege[i].getJahr() > result) {
+				result = bibEintraege[i].getJahr();
 			}
 		}
-		
 		return result;
 	}
 	
 	public double berechneErscheinungsjahr() {
-		if(bibEintraege.isEmpty()) {
+		if(bibEintraege.length == 0) {
 			return 0.0;
 		} else {
 			int total = 0;
-			
-			Iterator<BibEintrag> it = bibEintraege.iterator();
-			while(it.hasNext()) {
-				BibEintrag eintrag = it.next();
+			for(BibEintrag eintrag : bibEintraege) {
 				total += eintrag.getJahr();
 			}
-			
-			return total / bibEintraege.size();
+			return total / bibEintraege.length;
 		}
 	}
 	
@@ -68,7 +65,7 @@ public class BibManager {
 		 * Meiner Meinung nach macht es mehr Sinn und ist auch geschickter, wenn,
 		 * wenn diese Methode aufgerufen wird,
 		 * ohne dass Parameter gebraucht werden muss,
-		 * direkt alle Zitierschlüssel von kompatiblen Objekten im BibManager ausgedruckt werden.
+		 * direkt alle Zitierschlüssel von kompatiblen Objekten im BibManagerArray ausgedruckt werden.
 		 * 
 		 * Die Implementierung erfolgt dann direkt hier innerhalb der Methode,
 		 * und zwar für alle Zitierschlüssel von kompatiblen Objekten hier im BibManager.

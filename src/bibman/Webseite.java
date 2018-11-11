@@ -4,7 +4,7 @@ public class Webseite extends BibEintrag {
 
 	private String url;
 
-	public Webseite(String autor, String titel, int jahr, String url) {
+	public Webseite(Autor autor, String titel, int jahr, String url) {
 		super(autor, titel, jahr);
 		this.url = url;
 	}
@@ -19,7 +19,7 @@ public class Webseite extends BibEintrag {
 	
 	public void druckeEintrag() {
 		int realId = getId() + 1;
-		System.out.println("[ID " + realId + "] " + getAutor() + ": \"" + getTitel() + "\", " + getJahr() + 
+		System.out.println("[ID " + realId + "] " + getAutor().getFullname() + ": \"" + getTitel() + "\", " + getJahr() + 
 				". URL: " + getUrl());
 	}
 	
