@@ -90,6 +90,8 @@ public class Menu {
 			}
 		}
 		while(intEingabe != 7);
+		
+		scanner.close();
 	}
 	
 	public BibManager getBibManager() {
