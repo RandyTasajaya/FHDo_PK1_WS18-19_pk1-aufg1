@@ -13,6 +13,18 @@ public class Autor {
 		return vorname + " " + nachname;
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		Autor other = (Autor)obj;
+		return vorname == other.vorname && nachname == other.nachname;
+	}
+	
+	@Override
+	public int hashCode() {
+		String str = vorname + nachname;
+		return str.hashCode();
+	}
+	
 	public String getVorname() {
 		return vorname;
 	}

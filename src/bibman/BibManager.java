@@ -5,9 +5,11 @@ import java.util.*;
 public class BibManager {
 	
 	private List<BibEintrag> bibEintraege;
+	private Map<Autor, Integer> autorsEintraege;
 		
 	public BibManager() {
 		bibEintraege = new ArrayList<>();
+		autorsEintraege = new HashMap<>();
 	}
 	
 	public int getSize() {
@@ -24,9 +26,17 @@ public class BibManager {
 	
 	public void hinzufuegen(BibEintrag eintrag) {
 		bibEintraege.add(eintrag);
+		
+		if(autorsEintraege.containsKey(eintrag.getAutor())) {
+			autorsEintraege.put(eintrag.getAutor(), (autorsEintraege.get(eintrag.getAutor()))+1);
+		} else {
+			autorsEintraege.put(eintrag.getAutor(), 1);
+		}
 	}
 	
 	public void druckeAlleEintraege() {
+		Collections.sort(bibEintraege, new BibEintragComparator());
+		
 		for(BibEintrag eintrag : bibEintraege) {
 			eintrag.druckeEintrag();
 		}
@@ -83,5 +93,9 @@ public class BibManager {
 			if(quelle != null) System.out.println(quelle.erzeugeZitierschluessel());
 			else continue;
 		}
+	}
+	
+	public int gibAnzahlEintraege(Autor autor) {
+		return autorsEintraege.containsKey(autor) ? autorsEintraege.get(autor) : 0;
 	}
 }
