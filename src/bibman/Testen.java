@@ -6,7 +6,7 @@ public class Testen {
 
 	public static void main(String[] args) {
 		
-		Buch buch1 = new Buch(new Autor("Conrad", " Barski"), "Land of Lisp", 2010, 
+		Buch buch1 = new Buch(new Autor("Conrad", "Barski"), "Land of Lisp", 2010, 
 				"No Starch Press", "9781593272814");
 		Artikel artikel1 = new Artikel(new Autor("Donald E.", "Knuth"), "Computer programming as an art", 1974, 
 				"Communications of the ACM", 12);
@@ -67,11 +67,11 @@ public class Testen {
 		
 		System.out.println("Anzahl Eintraege Autor (Object Autor aufgerufen durch explizites Nameneingabe) " + 
 				manager1.getEintrag(3).getAutor().getFullname() + ": " + 
-				manager1.gibAnzahlEintraege(new Autor("Vorname", "Nachname")));
+				manager1.gibAnzahlEintraege(new Autor("Conrad", "Barski")));
 		
 		System.out.println("Anzahl Eintraege Autor (Object Autor aufgerufen durch explizites Nameneingabe) " + 
-				manager1.getEintrag(2).getAutor().getFullname() + ": " + 
-				manager1.gibAnzahlEintraege(new Autor("Christian", "Ullenbloom")));
+				"Randy Tasajaya : " + 
+				manager1.gibAnzahlEintraege(new Autor("Randy", "Tasajaya")));
 		
 		
 	}
