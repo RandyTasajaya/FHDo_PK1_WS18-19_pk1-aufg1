@@ -1,3 +1,6 @@
+/*
+ * Just in case.
+ */
 package bibman;
 
 public class GC {
