@@ -24,7 +24,13 @@ public class BibManager {
 		return bibEintraege.get(index);
 	}
 	
-	public void hinzufuegen(BibEintrag eintrag) {
+	public void hinzufuegen(BibEintrag eintrag) 
+		throws DoppelterBibEintragException {
+		
+		if(bibEintraege.contains(eintrag))
+			throw new DoppelterBibEintragException("Dieser Bibeintrag: \"" + eintrag.getTitel() + 
+					"\" von " + eintrag.getAutor().getFullname() + " wurde schon mal registriert!");
+		
 		bibEintraege.add(eintrag);
 		
 		if(autorsEintraege.containsKey(eintrag.getAutor())) {

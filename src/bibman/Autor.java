@@ -16,7 +16,7 @@ public class Autor {
 	@Override
 	public boolean equals(Object obj) {
 		Autor other = (Autor)obj;
-		return vorname == other.vorname && nachname == other.nachname;
+		return vorname.equals(other.vorname) && nachname.equals(other.nachname);
 	}
 	
 	@Override

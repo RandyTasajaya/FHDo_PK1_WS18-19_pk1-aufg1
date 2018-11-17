@@ -4,7 +4,8 @@ import java.util.Iterator;
 
 public class Testen {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) 
+		throws DoppelterBibEintragException {
 		
 		Buch buch1 = new Buch(new Autor("Conrad", "Barski"), "Land of Lisp", 2010, 
 				"No Starch Press", "9781593272814");
@@ -12,18 +13,6 @@ public class Testen {
 				"Communications of the ACM", 12);
 		Webseite webseite1 = new Webseite(new Autor("Christian", "Ullenbloom"), "Java ist auch eine Insel", 2016, 
 				"http://openbook.rheinwerk-verlag.de/javainsel/");
-		
-		/*buch1.druckeEintrag();
-		artikel1.druckeEintrag();
-		webseite1.druckeEintrag();
-		
-		System.out.println("\n\"" + buch1.getTitel() + "\" wurde vor " + buch1.berechneAlter() + 
-				" Jahren veröffentlicht.");
-		
-		System.out.println("\n" + buch1.erzeugeZitierschluessel());
-		System.out.println(artikel1.erzeugeZitierschluessel() + "\n");*/
-
-		
 		
 		BibManager manager1 = new BibManager();
 		
@@ -65,13 +54,24 @@ public class Testen {
 				manager1.getEintrag(3).getAutor().getFullname() + ": " + 
 				manager1.gibAnzahlEintraege(manager1.getEintrag(3).getAutor()));
 		
-		System.out.println("Anzahl Eintraege Autor (Object Autor aufgerufen durch explizites Nameneingabe) " + 
+		System.out.println("Anzahl Eintraege Autor (Object Autor aufgerufen durch "
+				+ "\n    neue Erstellung von Object Autor (explizites Nameneingabe)) " + 
 				manager1.getEintrag(3).getAutor().getFullname() + ": " + 
 				manager1.gibAnzahlEintraege(new Autor("Conrad", "Barski")));
 		
-		System.out.println("Anzahl Eintraege Autor (Object Autor aufgerufen durch explizites Nameneingabe) " + 
+		System.out.println("Anzahl Eintraege Autor (Object Autor aufgerufen durch "
+				+ "\n    neue Erstellung von Object Autor (explizites Nameneingabe)) " + 
 				"Randy Tasajaya : " + 
 				manager1.gibAnzahlEintraege(new Autor("Randy", "Tasajaya")));
+		
+		
+		System.out.println();
+		try {
+			manager1.hinzufuegen(new Buch(new Autor("Vorname", "Nachname"), "Buch Titel", 2018, "Verlagsname", "ISBN-Zahlen"));
+		}
+		catch(DoppelterBibEintragException e) {
+			System.out.println("Exception aufgefangen.");
+		}
 		
 		
 	}

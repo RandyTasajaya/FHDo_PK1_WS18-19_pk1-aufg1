@@ -21,7 +21,7 @@
   </class>  
   <class id="3" language="java" name="bibman.Testen" project="pk1-aufg1" file="/pk1-aufg1/src/bibman/Testen.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="380" y="40"/>    
+    <position height="-1" width="-1" x="1008" y="33"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -39,7 +39,7 @@
   </interface>  
   <class id="5" language="java" name="bibman.Menu" project="pk1-aufg1" file="/pk1-aufg1/src/bibman/Menu.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="123" y="383"/>    
+    <position height="-1" width="-1" x="123" y="402"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -84,77 +84,86 @@
   </class>  
   <class id="10" language="java" name="bibman.BibEintragComparator" project="pk1-aufg1" 
     file="/pk1-aufg1/src/bibman/BibEintragComparator.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="390" y="217"/>    
+    <position height="-1" width="-1" x="390" y="218"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <generalization id="11">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="2"/>  
-  </generalization>  
-  <association id="12">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="13" name="autor">        
-        <position height="0" width="0" x="0" y="-17"/>      
-      </attribute>      
-      <multiplicity id="14" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="-17"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="9" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <dependency id="15">    
-    <end type="SOURCE" refId="10"/>    
-    <end type="TARGET" refId="2"/>  
-  </dependency>  
-  <dependency id="16">    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="10"/>  
-  </dependency>  
-  <realization id="17">    
+  <class id="11" language="java" name="bibman.DoppelterBibEintragException" project="pk1-aufg1" 
+    file="/pk1-aufg1/src/bibman/DoppelterBibEintragException.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="386" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <realization id="12">    
     <end type="SOURCE" refId="1"/>    
     <end type="TARGET" refId="4"/>  
   </realization>  
-  <association id="18">    
+  <generalization id="13">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="2"/>  
+  </generalization>  
+  <generalization id="14">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="2"/>  
+  </generalization>  
+  <association id="15">    
     <end type="SOURCE" refId="8" navigable="false">      
-      <attribute id="19" name="bibEintraege">        
+      <attribute id="16" name="bibEintraege">        
         <position height="0" width="0" x="0" y="-17"/>      
       </attribute>      
-      <multiplicity id="20" minimum="0" maximum="2147483647">        
+      <multiplicity id="17" minimum="0" maximum="2147483647">        
         <position height="0" width="0" x="0" y="-17"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="2" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="21">    
-    <end type="SOURCE" refId="7"/>    
-    <end type="TARGET" refId="2"/>  
-  </generalization>  
-  <realization id="22">    
+  <realization id="18">    
     <end type="SOURCE" refId="7"/>    
     <end type="TARGET" refId="4"/>  
   </realization>  
-  <generalization id="23">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="2"/>  
-  </generalization>  
-  <association id="24">    
+  <association id="19">    
     <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="25" name="bibManager">        
+      <attribute id="20" name="bibManager">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="26" minimum="0" maximum="1">        
+      <multiplicity id="21" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="8" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
+  <association id="22">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="23" name="autor">        
+        <position height="0" width="0" x="0" y="-17"/>      
+      </attribute>      
+      <multiplicity id="24" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="-17"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="25">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <dependency id="26">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <generalization id="27">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="2"/>  
+  </generalization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    

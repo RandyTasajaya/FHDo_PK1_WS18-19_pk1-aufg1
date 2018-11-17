@@ -27,6 +27,12 @@ public abstract class BibEintrag {
 		return currentDate.getYear() - jahr;
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		BibEintrag other = (BibEintrag) obj;
+		return autor.equals(other.autor) && titel.equals(other.titel) && jahr == other.jahr;
+	}
+	
 	public int getId() {
 		return id;
 	}
