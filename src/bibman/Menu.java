@@ -44,7 +44,22 @@ public class Menu {
 			switch(intEingabe) {
 			
 			case 0:
-				// TO-DO
+				autorVorname = JOptionPane.showInputDialog(null, "Autors Vorname?");
+				if(autorVorname == null || autorVorname.replaceAll("\\s+", "").length() == 0) {
+					autorVorname = whenStringInDialogIsEmpty("Autors Vorname?");
+				}
+				
+				autorNachname = JOptionPane.showInputDialog(null, "Autors Nachname?");
+				if(autorNachname == null || autorNachname.replaceAll("\\s+", "").length() == 0) {
+					autorNachname = whenStringInDialogIsEmpty("Autors Nachname?");
+				}
+				
+				Autor autor = new Autor(autorVorname, autorNachname);
+				
+				System.out.println("\n" + autor.getFullname() + " hat in diesem BibManager " + 
+						bibManager.gibAnzahlEintraege(autor) + 
+						(bibManager.gibAnzahlEintraege(autor) > 1 ? " Einträge." : " Eintrag."));
+				
 				
 				System.out.println("\nCase 0 for debugging purposes was done.");
 				System.out.print("\n" + welcomeMenu);
@@ -66,15 +81,13 @@ public class Menu {
 					titel = whenStringInDialogIsEmpty("Titel?");
 				}
 				
-				jahr = jahreseingabe();
+				jahr = jahreseingabe(-1);
 				
 				try {
 					bibManager.hinzufuegen(new Buch(new Autor(autorVorname, autorNachname), titel, jahr, VERLAG, ISBN));
 				}
 				catch(DoppelterBibEintragException e) {
-					JOptionPane.showMessageDialog(null, "\nDieser Bibeintrag: \"" + titel + "\" von " + 
-							autorVorname + " " + autorNachname + " wurde schon mal registriert!", 
-							"Meldung", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, e.getMessage(), "Meldung", JOptionPane.ERROR_MESSAGE);
 				}
 				
 				System.out.print("\n" + welcomeMenu);
@@ -96,15 +109,13 @@ public class Menu {
 					titel = whenStringInDialogIsEmpty("Titel?");
 				}
 				
-				jahr = jahreseingabe();
+				jahr = jahreseingabe(-1);
 				
 				try {
 					bibManager.hinzufuegen(new Artikel(new Autor(autorVorname, autorNachname), titel, jahr, ZEITSCHRIFT, AUSGABE));
 				}
 				catch(DoppelterBibEintragException e) {
-					JOptionPane.showMessageDialog(null, "\nDieser Bibeintrag: \"" + titel + "\" von " + 
-							autorVorname + " " + autorNachname + " wurde schon mal registriert!", 
-							"Meldung", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, e.getMessage(), "Meldung", JOptionPane.ERROR_MESSAGE);
 				}
 				
 				System.out.print("\n" + welcomeMenu);
@@ -126,15 +137,13 @@ public class Menu {
 					titel = whenStringInDialogIsEmpty("Titel?");
 				}
 				
-				jahr = jahreseingabe();
+				jahr = jahreseingabe(-1);
 				
 				try {
 					bibManager.hinzufuegen(new Webseite(new Autor(autorVorname, autorNachname), titel, jahr, URL));
 				}
 				catch(DoppelterBibEintragException e) {
-					JOptionPane.showMessageDialog(null, "\nDieser Bibeintrag: \"" + titel + "\" von " + 
-							autorVorname + " " + autorNachname + " wurde schon mal registriert!", 
-							"Meldung", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, e.getMessage(), "Meldung", JOptionPane.ERROR_MESSAGE);
 				}
 				
 				System.out.print("\n" + welcomeMenu);
@@ -186,7 +195,7 @@ public class Menu {
 	}
 	
 	public String whenStringInDialogIsEmpty(String inputDialog) {
-		JOptionPane.showMessageDialog(null, "Sie haben gerade noch nichts eingegeben.", "Meldung", JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(null, "Sie müssen etwas eingegeben.", "Meldung", JOptionPane.ERROR_MESSAGE);
 		
 		String result = JOptionPane.showInputDialog(null, inputDialog);
 		if(result == null || result.replaceAll("\\s+", "").length() == 0) {
@@ -195,16 +204,18 @@ public class Menu {
 		return result;
 	}
 	
-	public int jahreseingabe() {
-		int jahr = -1;
-		try {
-			jahr = Integer.parseInt(JOptionPane.showInputDialog(null, "Jahr?"));
+	public int jahreseingabe(int recursive) {
+		if(recursive != -1) {
+			return recursive;
+		} else {
+			try {
+				recursive = Integer.parseInt(JOptionPane.showInputDialog(null, "Jahr?"));
+			}
+			catch(NumberFormatException e) {
+				JOptionPane.showMessageDialog(null, "Bitte geben Sie gültige Zahl ein!", "Meldung", JOptionPane.ERROR_MESSAGE);
+			}
+			return jahreseingabe(recursive);
 		}
-		catch(NumberFormatException e) {
-			JOptionPane.showMessageDialog(null, "Bitte geben Sie gültige Zahl ein!", "Meldung", JOptionPane.ERROR_MESSAGE);
-			jahreseingabe();
-		}
-		return jahr;
 	}
 	
 	public BibManager getBibManager() {
