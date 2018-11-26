@@ -9,4 +9,5 @@ public class DoppelterBibEintragException extends Exception {
 	public DoppelterBibEintragException(String arg0) {
 		super(arg0);
 	}
+	
 }

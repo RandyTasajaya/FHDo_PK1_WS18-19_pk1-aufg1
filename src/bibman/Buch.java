@@ -29,6 +29,11 @@ public class Buch extends BibEintrag implements Primaerquelle {
 		String str = getAutor().getFullname().replaceAll("\\s+", "");
 		return str + getJahr();
 	}
+	
+	@Override
+	public String exportiereAlsCsv() {
+		return super.exportiereAlsCsv() + verlag + "," + isbn + "," + ",,\n";
+	}
 
 	public String getVerlag() {
 		return verlag;
@@ -45,4 +50,5 @@ public class Buch extends BibEintrag implements Primaerquelle {
 	public void setIsbn(String isbn) {
 		this.isbn = isbn;
 	}
+	
 }

@@ -1,6 +1,6 @@
 package bibman;
 
-public class Autor {
+public class Autor implements CsvExportable {
 
 	private String vorname, nachname;
 	
@@ -13,6 +13,10 @@ public class Autor {
 		return vorname + " " + nachname;
 	}
 	
+	public String exportiereAlsCsv() {
+		return "Vorname,Nachname\n" + vorname + "," + nachname + "\n";
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		Autor other = (Autor)obj;
@@ -40,4 +44,5 @@ public class Autor {
 	public void setNachname(String nachname) {
 		this.nachname = nachname;
 	}
+	
 }

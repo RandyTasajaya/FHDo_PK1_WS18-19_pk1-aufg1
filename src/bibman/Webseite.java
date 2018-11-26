@@ -22,6 +22,11 @@ public class Webseite extends BibEintrag {
 		System.out.println("[ID " + realId + "] " + getAutor().getFullname() + ": \"" + getTitel() + "\", " + getJahr() + 
 				". URL: " + getUrl());
 	}
+
+	@Override
+	public String exportiereAlsCsv() {
+		return super.exportiereAlsCsv() + ",,,," + url + "\n";
+	}
 	
 	public String getUrl() {
 		return url;
@@ -30,4 +35,5 @@ public class Webseite extends BibEintrag {
 	public void setUrl(String url) {
 		this.url = url;
 	}
+	
 }

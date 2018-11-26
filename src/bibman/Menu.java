@@ -1,5 +1,8 @@
 package bibman;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
@@ -28,7 +31,8 @@ public class Menu {
 						   "\n4. Drucke alle Einträge" +
 						   "\n5. Suche neuesten Eintrag" +
 						   "\n6. Berechne durchschnittliches Erscheinungsjahr" +
-						   "\n7. Beenden" +
+						   "\n7. CSV-Export" +
+						   "\n8. Beenden" +
 						   "\nBitte Aktion wählen: ";
 		System.out.print(welcomeMenu);
 		
@@ -39,7 +43,7 @@ public class Menu {
 		int jahr;
 		
 		do {
-			intEingabe = askMenuNumber(scanner, 0, 7, welcomeMenu);		// case 0 for debugging 
+			intEingabe = askMenuNumber(scanner, 0, 8, welcomeMenu);		// case 0 for debugging 
 			
 			switch(intEingabe) {
 			
@@ -156,7 +160,8 @@ public class Menu {
 				break;
 				
 			case 5:
-				System.out.println("\nDer neueste Eintrag ist vom Jahr " + bibManager.sucheNeuestenEintrag() + ".");
+				System.out.println();
+				bibManager.sucheNeuestenEintrag();
 				System.out.print("\n" + welcomeMenu);
 				break;
 				
@@ -165,9 +170,15 @@ public class Menu {
 						(int)bibManager.berechneErscheinungsjahr() + ".");
 				System.out.print("\n" + welcomeMenu);
 				break;
+				
+			case 7:
+				csvExportDialog();
+				
+				System.out.print("\n" + welcomeMenu);
+				break;
 			}
 		}
-		while(intEingabe != 7);
+		while(intEingabe != 8);
 		
 		scanner.close();
 	}
@@ -218,6 +229,44 @@ public class Menu {
 		}
 	}
 	
+	public void csvExportDialog() {
+		String dateiname = JOptionPane.showInputDialog(null, "Dateiname für das zu erstellende CSV-Datei?");
+		if(dateiname == null || dateiname.replaceAll("\\s+", "").length() == 0) {
+			dateiname = whenStringInDialogIsEmpty("Dateiname für das zu erstellende CSV-Datei?");
+		}
+		
+		File csv = new File(dateiname + ".csv");
+		
+		try {
+			if(!csv.createNewFile()) {
+				int response = JOptionPane.showConfirmDialog(null,
+					    	   "Das CSV-Datei existiert bereits. Möchten Sie das existierende Datei überschreiben?",
+					    	   "Meldung", JOptionPane.YES_NO_OPTION);
+				
+				switch(response) {
+				
+				case JOptionPane.YES_OPTION:
+					csv.delete();
+					break;
+					
+				case JOptionPane.NO_OPTION:
+				case JOptionPane.CLOSED_OPTION:
+					csvExportDialog();
+					return;
+				}
+			} 
+			else {
+				csv.createNewFile();
+			}
+			bibManager.exportiereEintraegeAlsCsv(csv);
+		}
+		catch (FileNotFoundException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage(), "Meldung", JOptionPane.ERROR_MESSAGE);
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage(), "Meldung", JOptionPane.ERROR_MESSAGE);
+		}
+	}
+	
 	public BibManager getBibManager() {
 		return bibManager;
 	}
@@ -232,4 +281,5 @@ public class Menu {
 		Menu menu1 = new Menu(new BibManager());
 		menu1.run();
 	}
+	
 }

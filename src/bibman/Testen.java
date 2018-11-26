@@ -1,5 +1,7 @@
 package bibman;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Iterator;
 
 public class Testen {
@@ -24,7 +26,8 @@ public class Testen {
 		
 		manager1.druckeAlleEintraege();
 		
-		System.out.println("\nDer neueste Eintrag ist vom Jahr " + manager1.sucheNeuestenEintrag() + ".");
+		System.out.println();
+		manager1.sucheNeuestenEintrag();
 		System.out.println("Der Durschnitt der Erscheinungsjahre ist " +
 				(int)manager1.berechneErscheinungsjahr() + ".\n");
 				
@@ -73,6 +76,28 @@ public class Testen {
 			System.out.println("Exception aufgefangen.");
 		}
 		
+		
+		System.out.println();
+		File csv = new File("BibManager.csv");
+		try {
+			csv.createNewFile();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println("A CSV file (" + csv.getName() + ") was created!");
+		
+		// Für BibManager mit nur einem Element:
+		/*BibManager manager2 = new BibManager();
+		manager2.hinzufuegen(buch1);*/
+
+		try {
+			manager1.exportiereEintraegeAlsCsv(csv);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		
+		System.out.println();
 		
 	}
 }

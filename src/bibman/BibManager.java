@@ -1,5 +1,9 @@
 package bibman;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.util.*;
 
 public class BibManager {
@@ -48,18 +52,19 @@ public class BibManager {
 		}
 	}
 	
-	public int sucheNeuestenEintrag() {
-		int result = bibEintraege.get(0).getJahr();
+	public void sucheNeuestenEintrag() {
+		BibEintrag bibEintrag = bibEintraege.get(0);
 		
 		Iterator<BibEintrag> it = bibEintraege.iterator();
 		while(it.hasNext()) {
-			BibEintrag eintrag = it.next();
-			if(eintrag.getJahr() > result) {
-				result = eintrag.getJahr();
+			BibEintrag nextBibEintrag = it.next();
+			if(nextBibEintrag.getJahr() > bibEintrag.getJahr()) {
+				bibEintrag = nextBibEintrag;
 			}
 		}
 		
-		return result;
+		System.out.print("Der neueste Eintrag: ");
+		bibEintrag.druckeEintrag();
 	}
 	
 	public double berechneErscheinungsjahr() {
@@ -104,4 +109,31 @@ public class BibManager {
 	public int gibAnzahlEintraege(Autor autor) {
 		return autorsEintraege.containsKey(autor) ? autorsEintraege.get(autor) : 0;
 	}
+	
+	public void exportiereEintraegeAlsCsv(File datei)
+			throws FileNotFoundException, IOException {
+		
+		try(RandomAccessFile file = new RandomAccessFile(datei, "rw")) {
+
+			if(bibEintraege.size() == 0)
+				return;
+			
+			if(bibEintraege.size() == 1) {
+				file.write(bibEintraege.get(0).exportiereAlsCsv().getBytes());
+			}
+			else {
+				file.write(new String("ID,Vorname,Nachname,Titel,Jahr,Verlag,ISBN,Zeitschrift,Ausgabe,URL\n").getBytes());
+				
+				Iterator<BibEintrag> it = bibEintraege.iterator();
+				while(it.hasNext()) {
+					BibEintrag eintrag = it.next();
+					
+					String line = eintrag.exportiereAlsCsv().substring(67);
+					
+					file.write(line.getBytes());				
+				}
+			}
+		}
+	}
+	
 }

@@ -2,7 +2,7 @@ package bibman;
 
 import java.time.LocalDate;
 
-public abstract class BibEintrag {
+public abstract class BibEintrag implements CsvExportable {
 	
 	private int id;			// {readOnly} = keine setId-Methode
 	private Autor autor;
@@ -21,6 +21,12 @@ public abstract class BibEintrag {
 	public abstract boolean isWebseite();
 	public abstract boolean isBuch();
 	public abstract void druckeEintrag();
+	
+	public String exportiereAlsCsv() {
+		return "ID,Vorname,Nachname,Titel,Jahr,Verlag,ISBN,Zeitschrift,Ausgabe,URL\n" +
+				id + "," + autor.getVorname() + "," + autor.getNachname() + "," + 
+				titel + "," + jahr + ",";
+	}
 
 	public int berechneAlter() {
 		LocalDate currentDate = LocalDate.now();
@@ -60,4 +66,5 @@ public abstract class BibEintrag {
 	public void setJahr(int jahr) {
 		this.jahr = jahr;
 	}
+	
 }

@@ -30,6 +30,11 @@ public class Artikel extends BibEintrag implements Primaerquelle {
 		return str + getJahr() + "-" + getAusgabe();
 	}
 
+	@Override
+	public String exportiereAlsCsv() {
+		return super.exportiereAlsCsv() + ",," + zeitschrift + "," + ausgabe + ",\n";
+	}
+
 	public String getZeitschrift() {
 		return zeitschrift;
 	}
@@ -45,4 +50,5 @@ public class Artikel extends BibEintrag implements Primaerquelle {
 	public void setAusgabe(int ausgabe) {
 		this.ausgabe = ausgabe;
 	}
+	
 }

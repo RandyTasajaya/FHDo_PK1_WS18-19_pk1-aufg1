@@ -8,4 +8,5 @@ public class BibEintragComparator implements Comparator<BibEintrag> {
 	public int compare(BibEintrag a, BibEintrag b) {
 		return -Integer.compare(a.getJahr(), b.getJahr());
 	}
+	
 }
