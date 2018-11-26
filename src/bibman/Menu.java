@@ -229,7 +229,7 @@ public class Menu {
 		}
 	}
 	
-	public void csvExportDialog() {
+	public void csvExportDialog() { 
 		String dateiname = JOptionPane.showInputDialog(null, "Dateiname für das zu erstellende CSV-Datei?");
 		if(dateiname == null || dateiname.replaceAll("\\s+", "").length() == 0) {
 			dateiname = whenStringInDialogIsEmpty("Dateiname für das zu erstellende CSV-Datei?");
