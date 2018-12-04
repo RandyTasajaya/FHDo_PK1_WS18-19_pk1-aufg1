@@ -32,7 +32,7 @@ public class BibManagerArray {
 	
 	public void druckeAlleEintraege() {
 		for(BibEintrag eintrag : bibEintraege) {
-			eintrag.druckeEintrag();
+			eintrag.druckeEintrag(null);
 		}
 	}
 	

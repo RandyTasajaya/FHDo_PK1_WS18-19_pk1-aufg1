@@ -48,7 +48,7 @@ public class BibManager {
 		Collections.sort(bibEintraege, new BibEintragComparator());
 		
 		for(BibEintrag eintrag : bibEintraege) {
-			eintrag.druckeEintrag();
+			eintrag.druckeEintrag(null);
 		}
 	}
 	
@@ -64,7 +64,7 @@ public class BibManager {
 		}
 		
 		System.out.print("Der neueste Eintrag: ");
-		bibEintrag.druckeEintrag();
+		bibEintrag.druckeEintrag(null);
 	}
 	
 	public double berechneErscheinungsjahr() {
@@ -110,7 +110,7 @@ public class BibManager {
 		return autorsEintraege.containsKey(autor) ? autorsEintraege.get(autor) : 0;
 	}
 	
-	public void exportiereEintraegeAlsCsv(File datei)
+	public void exportiereEintraegeAlsCsvRaf(File datei)
 			throws FileNotFoundException, IOException {
 		
 		try(RandomAccessFile file = new RandomAccessFile(datei, "rw")) {

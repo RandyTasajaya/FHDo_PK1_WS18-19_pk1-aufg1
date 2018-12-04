@@ -1,5 +1,7 @@
 package bibman;
 
+import java.io.OutputStream;
+
 public class Artikel extends BibEintrag implements Primaerquelle {
 
 	private String zeitschrift;
@@ -19,7 +21,7 @@ public class Artikel extends BibEintrag implements Primaerquelle {
 		return false;
 	}
 	
-	public void druckeEintrag() {
+	public void druckeEintrag(OutputStream stream) {
 		int realId = getId() + 1;
 		System.out.println("[ID " + realId + "] " + getAutor().getFullname() + ": \"" + getTitel() + "\". In: \"" + 
 				getZeitschrift() + "\" (Ausgabe " + getAusgabe() + "), " + getJahr());

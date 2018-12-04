@@ -1,5 +1,7 @@
 package bibman;
 
+import java.io.OutputStream;
+
 public class Buch extends BibEintrag implements Primaerquelle {
 
 	private String verlag;
@@ -19,7 +21,7 @@ public class Buch extends BibEintrag implements Primaerquelle {
 		return true;
 	}
 	
-	public void druckeEintrag() {
+	public void druckeEintrag(OutputStream stream) {
 		int realId = getId() + 1;
 		System.out.println("[ID " + realId + "] " + getAutor().getFullname() + ": \"" + getTitel() + "\". " + getVerlag()
 				+ ", " + getJahr() + " (ISBN: " + getIsbn() + ")");

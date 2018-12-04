@@ -1,5 +1,7 @@
 package bibman;
 
+import java.io.OutputStream;
+
 public class Webseite extends BibEintrag {
 
 	private String url;
@@ -17,7 +19,7 @@ public class Webseite extends BibEintrag {
 		return false;
 	}
 	
-	public void druckeEintrag() {
+	public void druckeEintrag(OutputStream stream) {
 		int realId = getId() + 1;
 		System.out.println("[ID " + realId + "] " + getAutor().getFullname() + ": \"" + getTitel() + "\", " + getJahr() + 
 				". URL: " + getUrl());

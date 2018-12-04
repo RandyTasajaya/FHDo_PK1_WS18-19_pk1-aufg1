@@ -258,7 +258,7 @@ public class Menu {
 			else {
 				csv.createNewFile();
 			}
-			bibManager.exportiereEintraegeAlsCsv(csv);
+			bibManager.exportiereEintraegeAlsCsvRaf(csv);
 		}
 		catch (FileNotFoundException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(), "Meldung", JOptionPane.ERROR_MESSAGE);

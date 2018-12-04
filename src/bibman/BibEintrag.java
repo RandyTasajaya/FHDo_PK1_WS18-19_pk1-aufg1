@@ -1,5 +1,6 @@
 package bibman;
 
+import java.io.OutputStream;
 import java.time.LocalDate;
 
 public abstract class BibEintrag implements CsvExportable {
@@ -20,7 +21,7 @@ public abstract class BibEintrag implements CsvExportable {
 
 	public abstract boolean isWebseite();
 	public abstract boolean isBuch();
-	public abstract void druckeEintrag();
+	public abstract void druckeEintrag(OutputStream stream);
 	
 	public String exportiereAlsCsv() {
 		return "ID,Vorname,Nachname,Titel,Jahr,Verlag,ISBN,Zeitschrift,Ausgabe,URL\n" +
