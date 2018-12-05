@@ -218,7 +218,7 @@ public class Menu {
 					e.printStackTrace();
 				}
 				
-				System.out.println("\nDatei wurde geladen!");
+				System.out.println("\nDatei wurde geladen! (Falls keine exception ausgelöst wurde!)");
 				System.out.print("\n" + welcomeMenu);
 				break;
 			}
