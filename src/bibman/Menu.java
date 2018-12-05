@@ -1,8 +1,12 @@
 package bibman;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
@@ -32,7 +36,9 @@ public class Menu {
 						   "\n5. Suche neuesten Eintrag" +
 						   "\n6. Berechne durchschnittliches Erscheinungsjahr" +
 						   "\n7. CSV-Export" +
-						   "\n8. Beenden" +
+						   "\n8. Speichern" +
+						   "\n9. Laden" +
+						   "\n10. Beenden" +
 						   "\nBitte Aktion wählen: ";
 		System.out.print(welcomeMenu);
 		
@@ -43,7 +49,7 @@ public class Menu {
 		int jahr;
 		
 		do {
-			intEingabe = askMenuNumber(scanner, 0, 8, welcomeMenu);		// case 0 for debugging 
+			intEingabe = askMenuNumber(scanner, 0, 10, welcomeMenu);		// case 0 for debugging 
 			
 			switch(intEingabe) {
 			
@@ -176,9 +182,48 @@ public class Menu {
 				
 				System.out.print("\n" + welcomeMenu);
 				break;
+				
+			case 8:
+				try {
+					File file = new File("BibManager.ser");
+					file.createNewFile();
+					
+					try(FileOutputStream fos = new FileOutputStream(file);
+						ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+
+						oos.writeObject(bibManager);
+					}
+				}
+				catch (IOException e) {
+					e.printStackTrace();
+				}
+				
+				System.out.println("\nDatei wurde gespeichert!");
+				System.out.print("\n" + welcomeMenu);
+				break;
+			
+			case 9:
+				File file = new File("BibManager.ser");
+
+				try(FileInputStream fis = new FileInputStream(file);
+					ObjectInputStream ois = new ObjectInputStream(fis)) {
+					
+					bibManager = (BibManager)ois.readObject();
+					
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (ClassNotFoundException e) {
+					e.printStackTrace();
+				}
+				
+				System.out.println("\nDatei wurde geladen!");
+				System.out.print("\n" + welcomeMenu);
+				break;
 			}
 		}
-		while(intEingabe != 8);
+		while(intEingabe != 10);
 		
 		scanner.close();
 	}
@@ -258,7 +303,7 @@ public class Menu {
 			else {
 				csv.createNewFile();
 			}
-			bibManager.exportiereEintraegeAlsCsvRaf(csv);
+			bibManager.exportiereEintraegeAlsCsv(csv);
 		}
 		catch (FileNotFoundException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(), "Meldung", JOptionPane.ERROR_MESSAGE);

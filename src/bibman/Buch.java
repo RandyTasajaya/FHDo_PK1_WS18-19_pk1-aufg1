@@ -1,8 +1,9 @@
 package bibman;
 
 import java.io.OutputStream;
+import java.io.Serializable;
 
-public class Buch extends BibEintrag implements Primaerquelle {
+public class Buch extends BibEintrag implements Primaerquelle, Serializable {
 
 	private String verlag;
 	private String isbn;

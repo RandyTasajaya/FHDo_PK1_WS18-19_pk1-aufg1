@@ -1,9 +1,10 @@
 package bibman;
 
 import java.io.OutputStream;
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public abstract class BibEintrag implements CsvExportable {
+public abstract class BibEintrag implements CsvExportable, Serializable {
 	
 	private int id;			// {readOnly} = keine setId-Methode
 	private Autor autor;

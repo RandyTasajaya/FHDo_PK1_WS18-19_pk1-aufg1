@@ -1,8 +1,9 @@
 package bibman;
 
 import java.io.OutputStream;
+import java.io.Serializable;
 
-public class Webseite extends BibEintrag {
+public class Webseite extends BibEintrag implements Serializable {
 
 	private String url;
 

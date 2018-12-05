@@ -1,6 +1,8 @@
 package bibman;
 
-public class Autor implements CsvExportable {
+import java.io.Serializable;
+
+public class Autor implements CsvExportable, Serializable {
 
 	private String vorname, nachname;
 	

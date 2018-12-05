@@ -1,12 +1,19 @@
 package bibman;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.io.RandomAccessFile;
+import java.io.Serializable;
 import java.util.*;
 
-public class BibManager {
+public class BibManager implements Serializable {
 	
 	private List<BibEintrag> bibEintraege;
 	private Map<Autor, Integer> autorsEintraege;
@@ -45,26 +52,38 @@ public class BibManager {
 	}
 	
 	public void druckeAlleEintraege() {
-		Collections.sort(bibEintraege, new BibEintragComparator());
-		
-		for(BibEintrag eintrag : bibEintraege) {
-			eintrag.druckeEintrag(null);
+		if(bibEintraege.isEmpty()) {
+			System.out.println("BibManager ist leer!");
+			return;
+		}
+		else {
+			Collections.sort(bibEintraege, new BibEintragComparator());
+
+			for(BibEintrag eintrag : bibEintraege) {
+				eintrag.druckeEintrag(null);
+			}
 		}
 	}
 	
 	public void sucheNeuestenEintrag() {
-		BibEintrag bibEintrag = bibEintraege.get(0);
-		
-		Iterator<BibEintrag> it = bibEintraege.iterator();
-		while(it.hasNext()) {
-			BibEintrag nextBibEintrag = it.next();
-			if(nextBibEintrag.getJahr() > bibEintrag.getJahr()) {
-				bibEintrag = nextBibEintrag;
-			}
+		if(bibEintraege.isEmpty()) {
+			System.out.println("BibManager ist leer!");
+			return;
 		}
-		
-		System.out.print("Der neueste Eintrag: ");
-		bibEintrag.druckeEintrag(null);
+		else {
+			BibEintrag bibEintrag = bibEintraege.get(0);
+
+			Iterator<BibEintrag> it = bibEintraege.iterator();
+			while(it.hasNext()) {
+				BibEintrag nextBibEintrag = it.next();
+				if(nextBibEintrag.getJahr() > bibEintrag.getJahr()) {
+					bibEintrag = nextBibEintrag;
+				}
+			}
+
+			System.out.print("Der neueste Eintrag: ");
+			bibEintrag.druckeEintrag(null);
+		}
 	}
 	
 	public double berechneErscheinungsjahr() {
@@ -108,6 +127,30 @@ public class BibManager {
 	
 	public int gibAnzahlEintraege(Autor autor) {
 		return autorsEintraege.containsKey(autor) ? autorsEintraege.get(autor) : 0;
+	}
+	
+	public void exportiereEintraegeAlsCsv(File datei)
+			throws FileNotFoundException, IOException {
+		
+		try(FileWriter fw = new FileWriter(datei); PrintWriter pw = new PrintWriter(fw)) {
+			
+			if(bibEintraege.size() == 0)
+				return;
+			
+			if(bibEintraege.size() == 1) {
+				pw.write(bibEintraege.get(0).exportiereAlsCsv());
+			}
+			else {
+				pw.write("ID,Vorname,Nachname,Titel,Jahr,Verlag,ISBN,Zeitschrift,Ausgabe,URL\n");
+
+				Iterator<BibEintrag> it = bibEintraege.iterator();
+				while(it.hasNext()) {
+					BibEintrag eintrag = it.next();
+
+					pw.write(eintrag.exportiereAlsCsv().substring(67));				
+				}
+			}
+		}
 	}
 	
 	public void exportiereEintraegeAlsCsvRaf(File datei)
