@@ -1,13 +1,9 @@
 package bibman;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.io.RandomAccessFile;
 import java.io.Serializable;
@@ -17,6 +13,8 @@ public class BibManager implements Serializable {
 	
 	private List<BibEintrag> bibEintraege;
 	private Map<Autor, Integer> autorsEintraege;
+	
+	private static final long serialVersionUID = 7024505680571386182L;
 		
 	public BibManager() {
 		bibEintraege = new ArrayList<>();
@@ -60,7 +58,11 @@ public class BibManager implements Serializable {
 			Collections.sort(bibEintraege, new BibEintragComparator());
 
 			for(BibEintrag eintrag : bibEintraege) {
-				eintrag.druckeEintrag(null);
+				try {
+					eintrag.druckeEintrag(System.out);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 	}
@@ -82,7 +84,11 @@ public class BibManager implements Serializable {
 			}
 
 			System.out.print("Der neueste Eintrag: ");
-			bibEintrag.druckeEintrag(null);
+			try {
+				bibEintrag.druckeEintrag(System.out);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	

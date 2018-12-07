@@ -53,7 +53,7 @@ public class Menu {
 			
 			switch(intEingabe) {
 			
-			case 0:
+			case 0: // Einträge von Autor
 				autorVorname = JOptionPane.showInputDialog(null, "Autors Vorname?");
 				if(autorVorname == null || autorVorname.replaceAll("\\s+", "").length() == 0) {
 					autorVorname = whenStringInDialogIsEmpty("Autors Vorname?");
@@ -75,7 +75,7 @@ public class Menu {
 				System.out.print("\n" + welcomeMenu);
 				break;
 			
-			case 1:
+			case 1: // Buch hinzufügen
 				autorVorname = JOptionPane.showInputDialog(null, "Autors Vorname?");
 				if(autorVorname == null || autorVorname.replaceAll("\\s+", "").length() == 0) {
 					autorVorname = whenStringInDialogIsEmpty("Autors Vorname?");
@@ -103,7 +103,7 @@ public class Menu {
 				System.out.print("\n" + welcomeMenu);
 				break;
 				
-			case 2:
+			case 2: // Artikel hinzufügen
 				autorVorname = JOptionPane.showInputDialog(null, "Autors Vorname?");
 				if(autorVorname == null || autorVorname.replaceAll("\\s+", "").length() == 0) {
 					autorVorname = whenStringInDialogIsEmpty("Autors Vorname?");
@@ -131,7 +131,7 @@ public class Menu {
 				System.out.print("\n" + welcomeMenu);
 				break;
 				
-			case 3:
+			case 3: // Webseite hinzufügen
 				autorVorname = JOptionPane.showInputDialog(null, "Autors Vorname?");
 				if(autorVorname == null || autorVorname.replaceAll("\\s+", "").length() == 0) {
 					autorVorname = whenStringInDialogIsEmpty("Autors Vorname?");
@@ -159,56 +159,64 @@ public class Menu {
 				System.out.print("\n" + welcomeMenu);
 				break;
 				
-			case 4:
+			case 4: // Drucke alle Einträge
 				System.out.println();
 				bibManager.druckeAlleEintraege();
 				System.out.print("\n" + welcomeMenu);
 				break;
 				
-			case 5:
+			case 5: // Suche neuesten Eintrag
 				System.out.println();
 				bibManager.sucheNeuestenEintrag();
 				System.out.print("\n" + welcomeMenu);
 				break;
 				
-			case 6:
+			case 6: // Berechne durchschnittliches Erscheinungsjahr
 				System.out.println("\nDer Durschnitt der Erscheinungsjahre ist " +
 						(int)bibManager.berechneErscheinungsjahr() + ".");
 				System.out.print("\n" + welcomeMenu);
 				break;
 				
-			case 7:
+			case 7: // CSV-Export
 				csvExportDialog();
 				
+				System.out.println("\nCSV-Datei wurde erstellt!");
 				System.out.print("\n" + welcomeMenu);
 				break;
 				
-			case 8:
-				try {
-					File file = new File("BibManager.ser");
-					file.createNewFile();
-					
-					try(FileOutputStream fos = new FileOutputStream(file);
-						ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+			case 8: // Speichern
+				if(bibManager.getSize() == 0) {
+					System.out.println("\nBibManager hat keine Einträge zu speichern!");
+					System.out.print("\n" + welcomeMenu);
+					break;
+				}
+				else {
+					try {
+						File file = new File("BibManager.ser");
 
-						oos.writeObject(bibManager);
+						try(FileOutputStream fos = new FileOutputStream(file);
+								ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+
+							oos.writeObject(bibManager);
+						}
 					}
+					catch (IOException e) {
+						e.printStackTrace();
+					}
+
+					System.out.println("\nDatei wurde gespeichert!");
+					System.out.print("\n" + welcomeMenu);
+					break;
 				}
-				catch (IOException e) {
-					e.printStackTrace();
-				}
-				
-				System.out.println("\nDatei wurde gespeichert!");
-				System.out.print("\n" + welcomeMenu);
-				break;
 			
-			case 9:
+			case 9: // Laden
 				File file = new File("BibManager.ser");
 
 				try(FileInputStream fis = new FileInputStream(file);
 					ObjectInputStream ois = new ObjectInputStream(fis)) {
 					
 					bibManager = (BibManager)ois.readObject();
+					BibEintrag.setIdHelper(bibManager.getSize());
 					
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
@@ -218,12 +226,12 @@ public class Menu {
 					e.printStackTrace();
 				}
 				
-				System.out.println("\nDatei wurde geladen! (Falls keine exception ausgel�st wurde!)");
+				System.out.println("\nDatei wurde geladen! (Falls keine exception ausgelöst wurde!)");
 				System.out.print("\n" + welcomeMenu);
 				break;
 			}
 		}
-		while(intEingabe != 10);
+		while(intEingabe != 10); // Beenden
 		
 		scanner.close();
 	}

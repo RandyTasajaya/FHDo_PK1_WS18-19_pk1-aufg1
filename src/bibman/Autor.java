@@ -5,6 +5,8 @@ import java.io.Serializable;
 public class Autor implements CsvExportable, Serializable {
 
 	private String vorname, nachname;
+
+	private static final long serialVersionUID = -4958150371246877822L;
 	
 	public Autor(String vorname, String nachname) {
 		this.vorname = vorname;

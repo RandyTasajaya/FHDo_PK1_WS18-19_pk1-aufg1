@@ -1,12 +1,16 @@
 package bibman;
 
+import java.io.IOException;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.Serializable;
 
 public class Buch extends BibEintrag implements Primaerquelle, Serializable {
 
 	private String verlag;
 	private String isbn;
+
+	private static final long serialVersionUID = -3935378397240751260L;
 
 	public Buch(Autor autor, String titel, int jahr, String verlag, String isbn) {
 		super(autor, titel, jahr);
@@ -22,10 +26,15 @@ public class Buch extends BibEintrag implements Primaerquelle, Serializable {
 		return true;
 	}
 	
-	public void druckeEintrag(OutputStream stream) {
+	public void druckeEintrag(OutputStream stream)
+			throws IOException {
 		int realId = getId() + 1;
-		System.out.println("[ID " + realId + "] " + getAutor().getFullname() + ": \"" + getTitel() + "\". " + getVerlag()
-				+ ", " + getJahr() + " (ISBN: " + getIsbn() + ")");
+		String str = "[ID " + realId + "] " + getAutor().getFullname() + ": \"" + getTitel() + "\". " + getVerlag()
+				+ ", " + getJahr() + " (ISBN: " + getIsbn() + ")" + "\n";
+		
+		OutputStreamWriter osw = new OutputStreamWriter(stream);
+		osw.write(str);
+		osw.flush();
 	}
 	
 	public String erzeugeZitierschluessel() {

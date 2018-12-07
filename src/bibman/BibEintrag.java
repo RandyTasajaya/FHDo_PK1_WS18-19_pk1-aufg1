@@ -1,5 +1,6 @@
 package bibman;
 
+import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -12,6 +13,8 @@ public abstract class BibEintrag implements CsvExportable, Serializable {
 	private int jahr;
 
 	private static int idHelper;
+	
+	private static final long serialVersionUID = -1013508665712177163L;
 
 	public BibEintrag(Autor autor, String titel, int jahr) {
 		id = idHelper++;
@@ -22,7 +25,7 @@ public abstract class BibEintrag implements CsvExportable, Serializable {
 
 	public abstract boolean isWebseite();
 	public abstract boolean isBuch();
-	public abstract void druckeEintrag(OutputStream stream);
+	public abstract void druckeEintrag(OutputStream stream) throws IOException;
 	
 	public String exportiereAlsCsv() {
 		return "ID,Vorname,Nachname,Titel,Jahr,Verlag,ISBN,Zeitschrift,Ausgabe,URL\n" +
@@ -41,6 +44,14 @@ public abstract class BibEintrag implements CsvExportable, Serializable {
 		return autor.equals(other.autor) && titel.equals(other.titel) && jahr == other.jahr;
 	}
 	
+	public static int getIdHelper() {
+		return idHelper;
+	}
+
+	public static void setIdHelper(int idHelper) {
+		BibEintrag.idHelper = idHelper;
+	}
+
 	public int getId() {
 		return id;
 	}

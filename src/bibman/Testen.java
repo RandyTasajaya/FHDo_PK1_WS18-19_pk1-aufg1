@@ -1,7 +1,12 @@
 package bibman;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Iterator;
 
 public class Testen {
@@ -54,12 +59,12 @@ public class Testen {
 		
 		
 		System.out.println("\nAnzahl Eintraege Autor (Object Autor aufgerufen durch Methode) " + 
-				manager1.getEintrag(3).getAutor().getFullname() + ": " + 
+				manager1.getEintrag(3).getAutor().getFullname() + " : " + 
 				manager1.gibAnzahlEintraege(manager1.getEintrag(3).getAutor()));
 		
 		System.out.println("Anzahl Eintraege Autor (Object Autor aufgerufen durch "
 				+ "\n    neue Erstellung von Object Autor (explizites Nameneingabe)) " + 
-				manager1.getEintrag(3).getAutor().getFullname() + ": " + 
+				manager1.getEintrag(3).getAutor().getFullname() + " : " + 
 				manager1.gibAnzahlEintraege(new Autor("Conrad", "Barski")));
 		
 		System.out.println("Anzahl Eintraege Autor (Object Autor aufgerufen durch "
@@ -78,7 +83,7 @@ public class Testen {
 		
 		
 		System.out.println();
-		File csv = new File("BibManager.csv");
+		File csv = new File("BibManager_Testen.csv");
 		try {
 			csv.createNewFile();
 		} catch (IOException e) {
@@ -98,6 +103,31 @@ public class Testen {
 
 		
 		System.out.println();
+		File file = new File("BibManager_Testen.ser");
+		
+		try(FileOutputStream fos = new FileOutputStream(file);
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			FileInputStream fis = new FileInputStream(file);
+			ObjectInputStream ois = new ObjectInputStream(fis)) {
+			
+			oos.writeObject(manager1);
+			
+			Object readObject = ois.readObject();
+			BibManager bibManagerToBePrinted = (BibManager)readObject;
+			
+			System.out.println(bibManagerToBePrinted);
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		
+		System.out.println();
+		
 		
 	}
 }
