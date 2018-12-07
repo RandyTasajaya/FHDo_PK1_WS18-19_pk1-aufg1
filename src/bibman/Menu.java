@@ -191,18 +191,19 @@ public class Menu {
 					break;
 				}
 				else {
-					try {
-						File file = new File("BibManager.ser");
+					File file = new File("BibManager.ser");
+					
+					try(FileOutputStream fos = new FileOutputStream(file);
+						ObjectOutputStream oos = new ObjectOutputStream(fos)) {
 
-						try(FileOutputStream fos = new FileOutputStream(file);
-								ObjectOutputStream oos = new ObjectOutputStream(fos)) {
-
-							oos.writeObject(bibManager);
-						}
-					}
-					catch (IOException e) {
+						oos.writeObject(bibManager);
+						
+					} catch (FileNotFoundException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
 						e.printStackTrace();
 					}
+
 
 					System.out.println("\nDatei wurde gespeichert!");
 					System.out.print("\n" + welcomeMenu);

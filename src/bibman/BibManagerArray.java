@@ -1,5 +1,7 @@
 package bibman;
 
+import java.io.IOException;
+
 public class BibManagerArray {
 
 	private BibEintrag[] bibEintraege;
@@ -32,7 +34,11 @@ public class BibManagerArray {
 	
 	public void druckeAlleEintraege() {
 		for(BibEintrag eintrag : bibEintraege) {
-			eintrag.druckeEintrag(null);
+			try {
+				eintrag.druckeEintrag(System.out);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
