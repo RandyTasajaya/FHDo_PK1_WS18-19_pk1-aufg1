@@ -4,49 +4,49 @@ import java.io.Serializable;
 
 public class Autor implements CsvExportable, Serializable {
 
-	private String vorname, nachname;
+    private String vorname, nachname;
 
-	private static final long serialVersionUID = -4958150371246877822L;
-	
-	public Autor(String vorname, String nachname) {
-		this.vorname = vorname;
-		this.nachname = nachname;
-	}
+    private static final long serialVersionUID = -4958150371246877822L;
 
-	public String getFullname() {
-		return vorname + " " + nachname;
-	}
-	
-	public String exportiereAlsCsv() {
-		return "Vorname,Nachname\n" + vorname + "," + nachname + "\n";
-	}
+    public Autor(String vorname, String nachname) {
+        this.vorname = vorname;
+        this.nachname = nachname;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		Autor other = (Autor)obj;
-		return vorname.equals(other.vorname) && nachname.equals(other.nachname);
-	}
-	
-	@Override
-	public int hashCode() {
-		String str = vorname + nachname;
-		return str.hashCode();
-	}
-	
-	public String getVorname() {
-		return vorname;
-	}
+    public String getFullname() {
+        return vorname + " " + nachname;
+    }
 
-	public void setVorname(String vorname) {
-		this.vorname = vorname;
-	}
+    public String exportiereAlsCsv() {
+        return "Vorname,Nachname\n" + vorname + "," + nachname + "\n";
+    }
 
-	public String getNachname() {
-		return nachname;
-	}
+    @Override
+    public boolean equals(Object obj) {
+        Autor other = (Autor)obj;
+        return vorname.equals(other.vorname) && nachname.equals(other.nachname);
+    }
 
-	public void setNachname(String nachname) {
-		this.nachname = nachname;
-	}
-	
+    @Override
+    public int hashCode() {
+        String str = vorname + nachname;
+        return str.hashCode();
+    }
+
+    public String getVorname() {
+        return vorname;
+    }
+
+    public void setVorname(String vorname) {
+        this.vorname = vorname;
+    }
+
+    public String getNachname() {
+        return nachname;
+    }
+
+    public void setNachname(String nachname) {
+        this.nachname = nachname;
+    }
+
 }
