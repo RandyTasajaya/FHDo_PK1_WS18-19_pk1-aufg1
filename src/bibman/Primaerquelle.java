@@ -2,6 +2,6 @@ package bibman;
 
 public interface Primaerquelle {
 
-	public abstract String erzeugeZitierschluessel();
-	
+    public abstract String erzeugeZitierschluessel();
+
 }
