@@ -23,9 +23,15 @@ public abstract class BibEintrag implements CsvExportable, Serializable {
         this.jahr = jahr;
     }
 
+    public BibEintrag() {
+    }
+
     public abstract boolean isWebseite();
     public abstract boolean isBuch();
     public abstract void druckeEintrag(OutputStream stream) throws IOException;
+
+    @Override
+    public abstract String toString();
 
     public String exportiereAlsCsv() {
         return "ID,Vorname,Nachname,Titel,Jahr,Verlag,ISBN,Zeitschrift,Ausgabe,URL\n" +
@@ -53,6 +59,18 @@ public abstract class BibEintrag implements CsvExportable, Serializable {
 
     public int getId() {
         return id;
+    }
+
+    /*
+     * Diese Methode wird hier nur gemacht,
+     * um (nach Praktikumsufgabe) die Java-Beans-Konvention einzuhalten
+     * --> daher das "@Deprecated", um eine Warnung hervorzuheben.
+     *
+     * In diesem von mir entwickelten Code soll "id" nur automatisch durch "idHelper" arbeiten.
+     */
+    @Deprecated
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Autor getAutor() {

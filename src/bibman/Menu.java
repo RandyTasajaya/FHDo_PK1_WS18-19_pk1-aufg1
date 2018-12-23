@@ -2,8 +2,7 @@ package bibman;
 
 import javax.swing.*;
 import java.io.*;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.util.*;
 
 public class Menu {
 
@@ -11,6 +10,38 @@ public class Menu {
 
     public Menu(BibManager bibManager) {
         this.bibManager = bibManager;
+
+        /*
+         * For logging
+         */
+        bibManager.addObserver(new Observer() {
+
+            public void log(BibManager manager) {
+                File log = new File("log.txt");
+
+                try(FileWriter fw = new FileWriter(log, true);
+                    PrintWriter pw = new PrintWriter(fw)) {
+                    log.createNewFile();
+
+                    BibEintrag eintrag = manager.getEintrag(manager.getSize() - 1);
+
+                    pw.write("[" + new Date() + "] Eintrag hinzugefügt: " +
+                             "id=" + eintrag.getId() + ", " +
+                             "autor=" + eintrag.getAutor().getFullname() + ", " +
+                             "titel=" + eintrag.getTitel() + ", " +
+                             "jahr=" + eintrag.getJahr() +
+                             "\n");
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void update(Observable o, Object arg) {
+                log((BibManager)o);
+            }
+        });
     }
 
     private void run()
@@ -74,16 +105,19 @@ public class Menu {
 
                 case 1:  // Buch hinzufügen
                     autorVorname = JOptionPane.showInputDialog(null, "Autors Vorname?");
+
                     if(autorVorname == null || autorVorname.replaceAll("\\s+", "").length() == 0) {
                         autorVorname = whenStringInDialogIsEmpty("Autors Vorname?");
                     }
 
                     autorNachname = JOptionPane.showInputDialog(null, "Autors Nachname?");
+
                     if(autorNachname == null || autorNachname.replaceAll("\\s+", "").length() == 0) {
                         autorNachname = whenStringInDialogIsEmpty("Autors Nachname?");
                     }
 
                     titel = JOptionPane.showInputDialog(null, "Titel?");
+
                     if(titel == null || titel.replaceAll("\\s+", "").length() == 0) {
                         titel = whenStringInDialogIsEmpty("Titel?");
                     }
@@ -183,7 +217,12 @@ public class Menu {
                 case 5:  // Suche neuesten Eintrag
                     System.out.println();
 
-                    bibManager.sucheNeuestenEintrag();
+                    try {
+                        System.out.println("Der neueste Eintrag ist: \n" +
+                                bibManager.sucheNeuestenEintrag().toString());
+                    } catch(IllegalStateException e) {
+                        System.out.println(e.getMessage());
+                    }
 
                     System.out.print("\n" + welcomeMenu);
                     break;

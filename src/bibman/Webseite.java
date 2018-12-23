@@ -16,6 +16,9 @@ public class Webseite extends BibEintrag implements Serializable {
         this.url = url;
     }
 
+    public Webseite() {
+    }
+
     public boolean isWebseite() {
         return true;
     }
@@ -32,6 +35,13 @@ public class Webseite extends BibEintrag implements Serializable {
         OutputStreamWriter osw = new OutputStreamWriter(stream);
         osw.write(str);
         osw.flush();
+    }
+
+    @Override
+    public String toString() {
+        int realId = getId() + 1;
+
+        return "[ID " + realId + "] " + getAutor().getFullname() + ": \"" + getTitel() + "\", " + getJahr() + ". URL: " + getUrl() + "\n";
     }
 
     @Override

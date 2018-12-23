@@ -38,16 +38,16 @@ public class Testen {
         manager1.hinzufuegen(webseite1);
 
         manager1.hinzufuegen(new Buch(new Autor("Vorname", "Nachname"),
-                         "Buch Titel",
-                         2018,
-                       "Verlagsname",
-                         "ISBN-Zahlen"));
+                                  "Buch Titel",
+                                  2018,
+                                "Verlagsname",
+                                  "ISBN-Zahlen"));
 
         manager1.hinzufuegen(new Buch(new Autor("Vorname", "Nachname"),
-                         "Buch Titel - 2",
-                         2018,
-                        "Verlagsname",
-                         "ISBN-Zahlen"));
+                                  "Buch Titel - 2",
+                                  2018,
+                                "Verlagsname",
+                                  "ISBN-Zahlen"));
 
         //----------------------------------------------------------------------------------------
 
@@ -57,7 +57,8 @@ public class Testen {
         System.out.println();
         //----------------------------------------------------------------------------------------
 
-        manager1.sucheNeuestenEintrag();
+        System.out.println("Der neueste Eintrag ist: \n" +
+                manager1.sucheNeuestenEintrag().toString());
 
         System.out.println("Der Durschnitt der Erscheinungsjahre ist " +
                 (int)manager1.berechneErscheinungsjahr() + ".");
@@ -177,6 +178,11 @@ public class Testen {
         System.out.println();
         //----------------------------------------------------------------------------------------
 
-        
+//        // Using a deprecated method
+//        new Buch().setId();
+
+        //----------------------------------------------------------------------------------------
+
+
     }
 }

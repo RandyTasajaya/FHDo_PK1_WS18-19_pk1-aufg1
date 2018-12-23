@@ -18,6 +18,9 @@ public class Buch extends BibEintrag implements Primaerquelle, Serializable {
         this.isbn = isbn;
     }
 
+    public Buch() {
+    }
+
     public boolean isWebseite() {
         return false;
     }
@@ -34,6 +37,13 @@ public class Buch extends BibEintrag implements Primaerquelle, Serializable {
         OutputStreamWriter osw = new OutputStreamWriter(stream);
         osw.write(str);
         osw.flush();
+    }
+
+    @Override
+    public String toString() {
+        int realId = getId() + 1;
+
+        return "[ID " + realId + "] " + getAutor().getFullname() + ": \"" + getTitel() + "\". " + getVerlag() + ", " + getJahr() + " (ISBN: " + getIsbn() + ")" + "\n";
     }
 
     public String erzeugeZitierschluessel() {

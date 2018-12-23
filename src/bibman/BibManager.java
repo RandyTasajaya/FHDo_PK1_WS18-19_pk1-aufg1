@@ -9,7 +9,7 @@ import java.io.RandomAccessFile;
 import java.io.Serializable;
 import java.util.*;
 
-public class BibManager implements Serializable {
+public class BibManager extends Observable implements Serializable {
 
     private List<BibEintrag> bibEintraege;
     private Map<Autor, Integer> autorsEintraege;
@@ -33,6 +33,10 @@ public class BibManager implements Serializable {
         return bibEintraege.get(index);
     }
 
+    public Iterator<BibEintrag> iterator() {
+        return bibEintraege.iterator();
+    }
+
     public void hinzufuegen(BibEintrag eintrag)
             throws DoppelterBibEintragException {
 
@@ -42,11 +46,20 @@ public class BibManager implements Serializable {
 
         bibEintraege.add(eintrag);
 
+        /*
+         * Integration of Map<Autor, Integer> autorsEintraege
+         */
         if(autorsEintraege.containsKey(eintrag.getAutor())) {
             autorsEintraege.put(eintrag.getAutor(), (autorsEintraege.get(eintrag.getAutor()))+1);
         } else {
             autorsEintraege.put(eintrag.getAutor(), 1);
         }
+
+        /*
+         * For logging
+         */
+        setChanged();
+        notifyObservers();
     }
 
     public void druckeAlleEintraege() {
@@ -77,10 +90,9 @@ public class BibManager implements Serializable {
         }
     }
 
-    public void sucheNeuestenEintrag() {
+    public BibEintrag sucheNeuestenEintrag() {
         if(bibEintraege.isEmpty()) {
-            System.out.println("BibManager ist leer!");
-            return;
+            throw new IllegalStateException("BibManager ist leer!");
         }
         else {
             BibEintrag bibEintrag = bibEintraege.get(0);
@@ -93,12 +105,7 @@ public class BibManager implements Serializable {
                 }
             }
 
-            System.out.print("Der neueste Eintrag: ");
-            try {
-                bibEintrag.druckeEintrag(System.out);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            return bibEintrag;
         }
     }
 

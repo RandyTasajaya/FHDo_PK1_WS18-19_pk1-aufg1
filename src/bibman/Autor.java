@@ -13,6 +13,9 @@ public class Autor implements CsvExportable, Serializable {
         this.nachname = nachname;
     }
 
+    public Autor() {
+    }
+
     public String getFullname() {
         return vorname + " " + nachname;
     }
