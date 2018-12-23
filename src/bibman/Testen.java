@@ -117,11 +117,9 @@ public class Testen {
 
             System.out.println(bibManagerToBePrinted);
 
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException | ClassNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
 

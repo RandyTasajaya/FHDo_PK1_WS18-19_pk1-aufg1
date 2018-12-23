@@ -55,7 +55,12 @@ public class BibManager implements Serializable {
             return;
         }
         else {
-            Collections.sort(bibEintraege, new BibEintragComparator());
+            bibEintraege.sort(new Comparator<BibEintrag>() {
+                @Override
+                public int compare(BibEintrag o1, BibEintrag o2) {
+                    return o1.getAutor().getNachname().compareTo(o2.getAutor().getNachname());
+                }
+            });
 
             for(BibEintrag eintrag : bibEintraege) {
                 try {
@@ -63,6 +68,11 @@ public class BibManager implements Serializable {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+            }
+
+            for (Map.Entry<Autor, Integer> entry : autorsEintraege.entrySet()) {
+                System.out.print(entry.getKey().getFullname() + ": ");
+                System.out.println(entry.getValue() + " Einträge");
             }
         }
     }

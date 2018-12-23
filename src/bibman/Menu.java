@@ -1,15 +1,9 @@
 package bibman;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import javax.swing.*;
+import java.io.*;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import javax.swing.JOptionPane;
 
 public class Menu {
 
@@ -19,7 +13,7 @@ public class Menu {
         this.bibManager = bibManager;
     }
 
-    public void run()
+    private void run()
             throws DoppelterBibEintragException {
 
         final String VERLAG = "Default-Verlag";
@@ -237,7 +231,7 @@ public class Menu {
         scanner.close();
     }
 
-    public int askMenuNumber(Scanner sc, int minNum, int maxNum, String menu) {
+    private int askMenuNumber(Scanner sc, int minNum, int maxNum, String menu) {
 
         int menuNum = -1;
 
@@ -259,7 +253,7 @@ public class Menu {
         return menuNum;
     }
 
-    public String whenStringInDialogIsEmpty(String inputDialog) {
+    private String whenStringInDialogIsEmpty(String inputDialog) {
         JOptionPane.showMessageDialog(null, "Sie müssen etwas eingegeben.", "Meldung", JOptionPane.ERROR_MESSAGE);
 
         String result = JOptionPane.showInputDialog(null, inputDialog);
@@ -269,7 +263,7 @@ public class Menu {
         return result;
     }
 
-    public int jahreseingabe(int recursive) {
+    private int jahreseingabe(int recursive) {
         if(recursive != -1) {
             return recursive;
         } else {
@@ -283,7 +277,7 @@ public class Menu {
         }
     }
 
-    public void csvExportDialog() {
+    private void csvExportDialog() {
         String dateiname = JOptionPane.showInputDialog(null, "Dateiname für das zu erstellende CSV-Datei?");
         if(dateiname == null || dateiname.replaceAll("\\s+", "").length() == 0) {
             dateiname = whenStringInDialogIsEmpty("Dateiname für das zu erstellende CSV-Datei?");
