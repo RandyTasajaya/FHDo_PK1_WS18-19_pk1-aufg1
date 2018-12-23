@@ -44,8 +44,7 @@ public class Menu {
         });
     }
 
-    private void run()
-            throws DoppelterBibEintragException {
+    private void run() {
 
         final String VERLAG = "Default-Verlag";
         final String ISBN = "Default-ISBN";
@@ -229,7 +228,9 @@ public class Menu {
 
 
                 case 6:  // Berechne durchschnittliches Erscheinungsjahr
-                    System.out.println("\nDer Durschnitt der Erscheinungsjahre ist " +
+                    System.out.println();
+
+                    System.out.println("Der Durschnitt der Erscheinungsjahre ist " +
                             (int)bibManager.berechneErscheinungsjahr() + ".");
 
                     System.out.print("\n" + welcomeMenu);
@@ -237,16 +238,20 @@ public class Menu {
 
 
                 case 7:  // CSV-Export
+                    System.out.println();
+
                     csvExportDialog();
-                    System.out.println("\nCSV-Datei wurde erstellt!");
+                    System.out.println("CSV-Datei wurde erstellt!");
 
                     System.out.print("\n" + welcomeMenu);
                     break;
 
 
                 case 8:  // Speichern
+                    System.out.println();
+
                     if(bibManager.getSize() == 0) {
-                        System.out.println("\nBibManager hat keine Einträge zu speichern!");
+                        System.out.println("BibManager hat keine Einträge zu speichern!");
 
                         System.out.print("\n" + welcomeMenu);
                         break;
@@ -265,7 +270,7 @@ public class Menu {
                             e.printStackTrace();
                         }
 
-                        System.out.println("\nDatei wurde gespeichert!");
+                        System.out.println("Datei wurde gespeichert!");
 
                         System.out.print("\n" + welcomeMenu);
                         break;
@@ -273,6 +278,8 @@ public class Menu {
 
 
                 case 9:  // Laden
+                    System.out.println();
+
                     File file = new File("BibManager.ser");
 
                     try(FileInputStream fis = new FileInputStream(file);
@@ -287,7 +294,7 @@ public class Menu {
                         e.printStackTrace();
                     }
 
-                    System.out.println("\nDatei wurde geladen! (Falls keine exception ausgelöst wurde!)");
+                    System.out.println("Datei wurde geladen! (Falls keine exception ausgelöst wurde!)");
 
                     System.out.print("\n" + welcomeMenu);
                     break;
