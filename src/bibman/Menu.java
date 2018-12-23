@@ -417,8 +417,7 @@ public class Menu {
         this.bibManager = bibManager;
     }
 
-    public static void main(String[] args)
-            throws DoppelterBibEintragException {
+    public static void main(String[] args) {
 
         Menu menu1 = new Menu(new BibManager());
         menu1.run();

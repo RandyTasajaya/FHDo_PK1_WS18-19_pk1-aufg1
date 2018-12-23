@@ -2,11 +2,12 @@ package bibman;
 
 import java.io.IOException;
 
+@Deprecated
 public class BibManagerArray {
 
     private BibEintrag[] bibEintraege;
 
-    public static byte index;
+    private static byte index;
 
     public BibManagerArray(int zahlEintraege) {
         bibEintraege = new BibEintrag[zahlEintraege];
@@ -42,12 +43,13 @@ public class BibManagerArray {
         }
     }
 
+    // The implementation of below method is wrong, but, whatever, the class is deprecated
     public int sucheNeuestenEintrag() {
         int result = bibEintraege[0].getJahr();
 
-        for(int i = 0; i < bibEintraege.length; i++) {
-            if(bibEintraege[i].getJahr() > result) {
-                result = bibEintraege[i].getJahr();
+        for (BibEintrag bibEintrag : bibEintraege) {
+            if (bibEintrag.getJahr() > result) {
+                result = bibEintrag.getJahr();
             }
         }
         return result;
@@ -84,7 +86,7 @@ public class BibManagerArray {
          */
         for(Primaerquelle quelle : quellen) {
             if(quelle != null) System.out.println(quelle.erzeugeZitierschluessel());
-            else continue;
+            else continue; //The array "quellen" could have unfilled (==null) elements
         }
     }
 }

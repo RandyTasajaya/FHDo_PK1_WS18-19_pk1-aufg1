@@ -65,7 +65,6 @@ public class BibManager extends Observable implements Serializable {
     public void druckeAlleEintraege() {
         if(bibEintraege.isEmpty()) {
             System.out.println("BibManager ist leer!");
-            return;
         }
         else {
             bibEintraege.sort(new Comparator<BibEintrag>() {
@@ -144,7 +143,7 @@ public class BibManager extends Observable implements Serializable {
          */
         for(Primaerquelle quelle : quellen) {
             if(quelle != null) System.out.println(quelle.erzeugeZitierschluessel());
-            else continue;
+            else continue; //The array "quellen" could have unfilled (==null) elements
         }
     }
 
