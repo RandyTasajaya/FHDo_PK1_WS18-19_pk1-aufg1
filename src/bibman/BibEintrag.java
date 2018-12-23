@@ -29,8 +29,7 @@ public abstract class BibEintrag implements CsvExportable, Serializable {
 
     public String exportiereAlsCsv() {
         return "ID,Vorname,Nachname,Titel,Jahr,Verlag,ISBN,Zeitschrift,Ausgabe,URL\n" +
-                id + "," + autor.getVorname() + "," + autor.getNachname() + "," +
-                titel + "," + jahr + ",";
+                id + "," + autor.getVorname() + "," + autor.getNachname() + "," + titel + "," + jahr + ",";
     }
 
     public int berechneAlter() {

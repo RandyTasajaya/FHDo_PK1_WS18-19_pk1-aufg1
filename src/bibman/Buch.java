@@ -29,8 +29,7 @@ public class Buch extends BibEintrag implements Primaerquelle, Serializable {
     public void druckeEintrag(OutputStream stream)
             throws IOException {
         int realId = getId() + 1;
-        String str = "[ID " + realId + "] " + getAutor().getFullname() + ": \"" + getTitel() + "\". " + getVerlag()
-                + ", " + getJahr() + " (ISBN: " + getIsbn() + ")" + "\n";
+        String str = "[ID " + realId + "] " + getAutor().getFullname() + ": \"" + getTitel() + "\". " + getVerlag() + ", " + getJahr() + " (ISBN: " + getIsbn() + ")" + "\n";
 
         OutputStreamWriter osw = new OutputStreamWriter(stream);
         osw.write(str);

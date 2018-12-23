@@ -29,8 +29,7 @@ public class Artikel extends BibEintrag implements Primaerquelle, Serializable {
     public void druckeEintrag(OutputStream stream)
             throws IOException {
         int realId = getId() + 1;
-        String str = "[ID " + realId + "] " + getAutor().getFullname() + ": \"" + getTitel() + "\". In: \"" +
-                getZeitschrift() + "\" (Ausgabe " + getAusgabe() + "), " + getJahr() + "\n";
+        String str = "[ID " + realId + "] " + getAutor().getFullname() + ": \"" + getTitel() + "\". In: \"" + getZeitschrift() + "\" (Ausgabe " + getAusgabe() + "), " + getJahr() + "\n";
 
         OutputStreamWriter osw = new OutputStreamWriter(stream);
         osw.write(str);

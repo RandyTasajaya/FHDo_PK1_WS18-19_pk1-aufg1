@@ -142,13 +142,14 @@ public class BibManager implements Serializable {
     }
 
     public int gibAnzahlEintraege(Autor autor) {
-        return autorsEintraege.containsKey(autor) ? autorsEintraege.get(autor) : 0;
+        return autorsEintraege.getOrDefault(autor, 0);
     }
 
     public void exportiereEintraegeAlsCsv(File datei)
             throws FileNotFoundException, IOException {
 
-        try(FileWriter fw = new FileWriter(datei); PrintWriter pw = new PrintWriter(fw)) {
+        try(FileWriter fw = new FileWriter(datei);
+            PrintWriter pw = new PrintWriter(fw)) {
 
             if(bibEintraege.size() == 0)
                 return;
@@ -181,7 +182,7 @@ public class BibManager implements Serializable {
                 file.write(bibEintraege.get(0).exportiereAlsCsv().getBytes());
             }
             else {
-                file.write(new String("ID,Vorname,Nachname,Titel,Jahr,Verlag,ISBN,Zeitschrift,Ausgabe,URL\n").getBytes());
+                file.write("ID,Vorname,Nachname,Titel,Jahr,Verlag,ISBN,Zeitschrift,Ausgabe,URL\n".getBytes());
 
                 Iterator<BibEintrag> it = bibEintraege.iterator();
                 while(it.hasNext()) {

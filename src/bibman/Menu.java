@@ -43,17 +43,19 @@ public class Menu {
         int jahr;
 
         do {
-            intEingabe = askMenuNumber(scanner, 0, 10, welcomeMenu);		// case 0 for debugging
+            intEingabe = askMenuNumber(scanner, 0, 10, welcomeMenu);  // case 0 for debugging
 
             switch(intEingabe) {
 
-                case 0: // Einträge von Autor
+                case 0:  // Einträge von Autor
                     autorVorname = JOptionPane.showInputDialog(null, "Autors Vorname?");
+
                     if(autorVorname == null || autorVorname.replaceAll("\\s+", "").length() == 0) {
                         autorVorname = whenStringInDialogIsEmpty("Autors Vorname?");
                     }
 
                     autorNachname = JOptionPane.showInputDialog(null, "Autors Nachname?");
+
                     if(autorNachname == null || autorNachname.replaceAll("\\s+", "").length() == 0) {
                         autorNachname = whenStringInDialogIsEmpty("Autors Nachname?");
                     }
@@ -69,7 +71,8 @@ public class Menu {
                     System.out.print("\n" + welcomeMenu);
                     break;
 
-                case 1: // Buch hinzufügen
+
+                case 1:  // Buch hinzufügen
                     autorVorname = JOptionPane.showInputDialog(null, "Autors Vorname?");
                     if(autorVorname == null || autorVorname.replaceAll("\\s+", "").length() == 0) {
                         autorVorname = whenStringInDialogIsEmpty("Autors Vorname?");
@@ -97,18 +100,22 @@ public class Menu {
                     System.out.print("\n" + welcomeMenu);
                     break;
 
-                case 2: // Artikel hinzufügen
+
+                case 2:  // Artikel hinzufügen
                     autorVorname = JOptionPane.showInputDialog(null, "Autors Vorname?");
+
                     if(autorVorname == null || autorVorname.replaceAll("\\s+", "").length() == 0) {
                         autorVorname = whenStringInDialogIsEmpty("Autors Vorname?");
                     }
 
                     autorNachname = JOptionPane.showInputDialog(null, "Autors Nachname?");
+
                     if(autorNachname == null || autorNachname.replaceAll("\\s+", "").length() == 0) {
                         autorNachname = whenStringInDialogIsEmpty("Autors Nachname?");
                     }
 
                     titel = JOptionPane.showInputDialog(null, "Titel?");
+
                     if(titel == null || titel.replaceAll("\\s+", "").length() == 0) {
                         titel = whenStringInDialogIsEmpty("Titel?");
                     }
@@ -119,24 +126,31 @@ public class Menu {
                         bibManager.hinzufuegen(new Artikel(new Autor(autorVorname, autorNachname), titel, jahr, ZEITSCHRIFT, AUSGABE));
                     }
                     catch(DoppelterBibEintragException e) {
-                        JOptionPane.showMessageDialog(null, e.getMessage(), "Meldung", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null,
+                                                                     e.getMessage(),
+                                                                "Meldung",
+                                                                     JOptionPane.ERROR_MESSAGE);
                     }
 
                     System.out.print("\n" + welcomeMenu);
                     break;
 
-                case 3: // Webseite hinzufügen
+
+                case 3:  // Webseite hinzufügen
                     autorVorname = JOptionPane.showInputDialog(null, "Autors Vorname?");
+
                     if(autorVorname == null || autorVorname.replaceAll("\\s+", "").length() == 0) {
                         autorVorname = whenStringInDialogIsEmpty("Autors Vorname?");
                     }
 
                     autorNachname = JOptionPane.showInputDialog(null, "Autors Nachname?");
+
                     if(autorNachname == null || autorNachname.replaceAll("\\s+", "").length() == 0) {
                         autorNachname = whenStringInDialogIsEmpty("Autors Nachname?");
                     }
 
                     titel = JOptionPane.showInputDialog(null, "Titel?");
+
                     if(titel == null || titel.replaceAll("\\s+", "").length() == 0) {
                         titel = whenStringInDialogIsEmpty("Titel?");
                     }
@@ -147,40 +161,54 @@ public class Menu {
                         bibManager.hinzufuegen(new Webseite(new Autor(autorVorname, autorNachname), titel, jahr, URL));
                     }
                     catch(DoppelterBibEintragException e) {
-                        JOptionPane.showMessageDialog(null, e.getMessage(), "Meldung", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null,
+                                                                     e.getMessage(),
+                                                                "Meldung",
+                                                                     JOptionPane.ERROR_MESSAGE);
                     }
 
                     System.out.print("\n" + welcomeMenu);
                     break;
 
-                case 4: // Drucke alle Einträge
+
+                case 4:  // Drucke alle Einträge
                     System.out.println();
+
                     bibManager.druckeAlleEintraege();
+
                     System.out.print("\n" + welcomeMenu);
                     break;
 
-                case 5: // Suche neuesten Eintrag
+
+                case 5:  // Suche neuesten Eintrag
                     System.out.println();
+
                     bibManager.sucheNeuestenEintrag();
+
                     System.out.print("\n" + welcomeMenu);
                     break;
 
-                case 6: // Berechne durchschnittliches Erscheinungsjahr
+
+                case 6:  // Berechne durchschnittliches Erscheinungsjahr
                     System.out.println("\nDer Durschnitt der Erscheinungsjahre ist " +
                             (int)bibManager.berechneErscheinungsjahr() + ".");
+
                     System.out.print("\n" + welcomeMenu);
                     break;
 
-                case 7: // CSV-Export
+
+                case 7:  // CSV-Export
                     csvExportDialog();
-
                     System.out.println("\nCSV-Datei wurde erstellt!");
+
                     System.out.print("\n" + welcomeMenu);
                     break;
 
-                case 8: // Speichern
+
+                case 8:  // Speichern
                     if(bibManager.getSize() == 0) {
                         System.out.println("\nBibManager hat keine Einträge zu speichern!");
+
                         System.out.print("\n" + welcomeMenu);
                         break;
                     }
@@ -198,13 +226,14 @@ public class Menu {
                             e.printStackTrace();
                         }
 
-
                         System.out.println("\nDatei wurde gespeichert!");
+
                         System.out.print("\n" + welcomeMenu);
                         break;
                     }
 
-                case 9: // Laden
+
+                case 9:  // Laden
                     File file = new File("BibManager.ser");
 
                     try(FileInputStream fis = new FileInputStream(file);
@@ -213,20 +242,19 @@ public class Menu {
                         bibManager = (BibManager)ois.readObject();
                         BibEintrag.setIdHelper(bibManager.getSize());
 
-                    } catch (FileNotFoundException e) {
+                    } catch (FileNotFoundException | ClassNotFoundException e) {
                         e.printStackTrace();
                     } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (ClassNotFoundException e) {
                         e.printStackTrace();
                     }
 
                     System.out.println("\nDatei wurde geladen! (Falls keine exception ausgelöst wurde!)");
+
                     System.out.print("\n" + welcomeMenu);
                     break;
             }
         }
-        while(intEingabe != 10); // Beenden
+        while(intEingabe != 10);  // Beenden
 
         scanner.close();
     }
@@ -240,12 +268,14 @@ public class Menu {
 
             while(menuNum > maxNum || menuNum < minNum) {
                 System.out.println("\nUngültige Zahl!");
+
                 System.out.print("\n" + menu);
                 menuNum = sc.nextInt();
             }
         }
         catch(InputMismatchException e) {
             System.out.println("\nBitte geben Sie eine Zahl ein!");
+
             System.out.print("\n" + menu);
             sc.nextLine();
         }
@@ -254,12 +284,18 @@ public class Menu {
     }
 
     private String whenStringInDialogIsEmpty(String inputDialog) {
-        JOptionPane.showMessageDialog(null, "Sie müssen etwas eingegeben.", "Meldung", JOptionPane.ERROR_MESSAGE);
+
+        JOptionPane.showMessageDialog(null,
+                                            "Sie müssen etwas eingegeben.",
+                                                "Meldung",
+                                                    JOptionPane.ERROR_MESSAGE);
 
         String result = JOptionPane.showInputDialog(null, inputDialog);
+
         if(result == null || result.replaceAll("\\s+", "").length() == 0) {
             result = whenStringInDialogIsEmpty(inputDialog);
         }
+
         return result;
     }
 
@@ -271,14 +307,19 @@ public class Menu {
                 recursive = Integer.parseInt(JOptionPane.showInputDialog(null, "Jahr?"));
             }
             catch(NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Bitte geben Sie gültige Zahl ein!", "Meldung", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null,
+                                                    "Bitte geben Sie gültige Zahl ein!",
+                                                        "Meldung",
+                                                            JOptionPane.ERROR_MESSAGE);
             }
             return jahreseingabe(recursive);
         }
     }
 
     private void csvExportDialog() {
+
         String dateiname = JOptionPane.showInputDialog(null, "Dateiname für das zu erstellende CSV-Datei?");
+
         if(dateiname == null || dateiname.replaceAll("\\s+", "").length() == 0) {
             dateiname = whenStringInDialogIsEmpty("Dateiname für das zu erstellende CSV-Datei?");
         }
@@ -288,8 +329,9 @@ public class Menu {
         try {
             if(!csv.createNewFile()) {
                 int response = JOptionPane.showConfirmDialog(null,
-                        "Das CSV-Datei existiert bereits. Möchten Sie das existierende Datei überschreiben?",
-                        "Meldung", JOptionPane.YES_NO_OPTION);
+                                                                   "Das CSV-Datei existiert bereits. Möchten Sie das existierende Datei überschreiben?",
+                                                                       "Meldung",
+                                                                            JOptionPane.YES_NO_OPTION);
 
                 switch(response) {
 
@@ -309,9 +351,15 @@ public class Menu {
             bibManager.exportiereEintraegeAlsCsv(csv);
         }
         catch (FileNotFoundException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Meldung", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,
+                                                         e.getMessage(),
+                                                    "Meldung",
+                                                         JOptionPane.ERROR_MESSAGE);
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Meldung", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,
+                                                         e.getMessage(),
+                                                    "Meldung",
+                                                         JOptionPane.ERROR_MESSAGE);
         }
     }
 

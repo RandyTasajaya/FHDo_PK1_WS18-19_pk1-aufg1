@@ -27,8 +27,7 @@ public class Webseite extends BibEintrag implements Serializable {
     public void druckeEintrag(OutputStream stream)
             throws IOException {
         int realId = getId() + 1;
-        String str = "[ID " + realId + "] " + getAutor().getFullname() + ": \"" + getTitel() + "\", " + getJahr() +
-                ". URL: " + getUrl() + "\n";
+        String str = "[ID " + realId + "] " + getAutor().getFullname() + ": \"" + getTitel() + "\", " + getJahr() + ". URL: " + getUrl() + "\n";
 
         OutputStreamWriter osw = new OutputStreamWriter(stream);
         osw.write(str);
