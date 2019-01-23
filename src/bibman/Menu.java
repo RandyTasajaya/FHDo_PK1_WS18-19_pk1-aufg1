@@ -17,6 +17,7 @@ public class Menu {
         bibManager.addObserver(new Observer() {
 
             public void log(BibManager manager) {
+
                 File log = new File("log.txt");
 
                 try(FileWriter fw = new FileWriter(log, true);
@@ -219,7 +220,8 @@ public class Menu {
                     try {
                         System.out.println("Der neueste Eintrag ist: \n" +
                                 bibManager.sucheNeuestenEintrag().toString());
-                    } catch(IllegalStateException e) {
+                    }
+                    catch(IllegalStateException e) {
                         System.out.println(e.getMessage());
                     }
 
@@ -257,20 +259,21 @@ public class Menu {
                         break;
                     }
                     else {
-                        File file = new File("BibManager.ser");
+                        File file = new File("BibManager_Menu.ser");
 
                         try(FileOutputStream fos = new FileOutputStream(file);
                             ObjectOutputStream oos = new ObjectOutputStream(fos)) {
 
                             oos.writeObject(bibManager);
 
-                        } catch (FileNotFoundException e) {
-                            e.printStackTrace();
-                        } catch (IOException e) {
+                            System.out.println("Datei wurde gespeichert!");
+                        }
+                        catch (FileNotFoundException e) {
                             e.printStackTrace();
                         }
-
-                        System.out.println("Datei wurde gespeichert!");
+                        catch (IOException e) {
+                            e.printStackTrace();
+                        }
 
                         System.out.print("\n" + welcomeMenu);
                         break;
@@ -280,21 +283,55 @@ public class Menu {
                 case 9:  // Laden
                     System.out.println();
 
-                    File file = new File("BibManager.ser");
+                    File file = new File("BibManager_Menu.ser");
 
                     try(FileInputStream fis = new FileInputStream(file);
                         ObjectInputStream ois = new ObjectInputStream(fis)) {
 
                         bibManager = (BibManager)ois.readObject();
-                        BibEintrag.setIdHelper(bibManager.getSize());
+                        BibEintrag.setIdHelper(bibManager.getIdHelperOfBibEintrag());
 
-                    } catch (FileNotFoundException | ClassNotFoundException e) {
+                        /*
+                         * For logging function that is gone because it's implemented as anonymous class
+                         */
+                        bibManager.addObserver(new Observer() {
+
+                            public void log(BibManager manager) {
+                                File log = new File("log.txt");
+
+                                try(FileWriter fw = new FileWriter(log, true);
+                                    PrintWriter pw = new PrintWriter(fw)) {
+                                    log.createNewFile();
+
+                                    BibEintrag eintrag = manager.getEintrag(manager.getSize() - 1);
+
+                                    pw.write("[" + new Date() + "] Eintrag hinzugefügt: " +
+                                            "id=" + eintrag.getId() + ", " +
+                                            "autor=" + eintrag.getAutor().getFullname() + ", " +
+                                            "titel=" + eintrag.getTitel() + ", " +
+                                            "jahr=" + eintrag.getJahr() +
+                                            "\n");
+                                }
+                                catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            @Override
+                            public void update(Observable o, Object arg) {
+                                log((BibManager)o);
+                            }
+                        });
+
+                        System.out.println("Datei wurde geladen!");
+                    }
+                    catch (FileNotFoundException | ClassNotFoundException e) {
                         e.printStackTrace();
-                    } catch (IOException e) {
+                        System.out.println("!!! LIES MICH !!!\n-----------------\nDas obige Exception taucht bestimmt auf, denn sein Fall wird nicht kodiert, weil es eben von der Praktikumaufgabe nicht gefordert wird. ~Randy Tasajaya");
+                    }
+                    catch (IOException e) {
                         e.printStackTrace();
                     }
-
-                    System.out.println("Datei wurde geladen! (Falls keine exception ausgelöst wurde!)");
 
                     System.out.print("\n" + welcomeMenu);
                     break;
@@ -332,7 +369,7 @@ public class Menu {
     private String whenStringInDialogIsEmpty(String inputDialog) {
 
         JOptionPane.showMessageDialog(null,
-                                            "Sie müssen etwas eingegeben.",
+                                            "Sie müssen etwas eingeben.",
                                                 "Meldung",
                                                     JOptionPane.ERROR_MESSAGE);
 
@@ -364,10 +401,10 @@ public class Menu {
 
     private void csvExportDialog() {
 
-        String dateiname = JOptionPane.showInputDialog(null, "Dateiname für das zu erstellende CSV-Datei?");
+        String dateiname = JOptionPane.showInputDialog(null, "Dateiname für die zu erstellende CSV-Datei?");
 
         if(dateiname == null || dateiname.replaceAll("\\s+", "").length() == 0) {
-            dateiname = whenStringInDialogIsEmpty("Dateiname für das zu erstellende CSV-Datei?");
+            dateiname = whenStringInDialogIsEmpty("Dateiname für die zu erstellende CSV-Datei?");
         }
 
         File csv = new File(dateiname + ".csv");
@@ -375,7 +412,7 @@ public class Menu {
         try {
             if(!csv.createNewFile()) {
                 int response = JOptionPane.showConfirmDialog(null,
-                                                                   "Das CSV-Datei existiert bereits. Möchten Sie das existierende Datei überschreiben?",
+                                                                   "Die CSV-Datei existiert bereits. Möchten Sie die existierende Datei überschreiben?",
                                                                        "Meldung",
                                                                             JOptionPane.YES_NO_OPTION);
 
@@ -401,7 +438,8 @@ public class Menu {
                                                          e.getMessage(),
                                                     "Meldung",
                                                          JOptionPane.ERROR_MESSAGE);
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             JOptionPane.showMessageDialog(null,
                                                          e.getMessage(),
                                                     "Meldung",

@@ -24,6 +24,7 @@ public abstract class BibEintrag implements CsvExportable, Serializable {
     }
 
     public BibEintrag() {
+        id = idHelper++;
     }
 
     public abstract boolean isWebseite();
@@ -45,6 +46,10 @@ public abstract class BibEintrag implements CsvExportable, Serializable {
 
     @Override
     public boolean equals(Object obj) {
+        if (!(obj instanceof BibEintrag)) {
+            return false;
+        }
+
         BibEintrag other = (BibEintrag) obj;
         return autor.equals(other.autor) && titel.equals(other.titel) && jahr == other.jahr;
     }

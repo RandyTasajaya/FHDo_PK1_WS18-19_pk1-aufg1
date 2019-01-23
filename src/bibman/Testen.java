@@ -1,12 +1,6 @@
 package bibman;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.Iterator;
 
 public class Testen {
@@ -180,6 +174,21 @@ public class Testen {
 
 //        // Using a deprecated method
 //        new Buch().setId();
+
+        //----------------------------------------------------------------------------------------
+
+//        // Calling a function with -null- as argument
+//        manager1.hinzufuegen(null);
+
+        /*
+         * One developer could think,
+         * does everything, and I mean really everything, need to be coded
+         * with NullPointerException in mind?
+         *
+         * Sure, there are a (whole!) lot of cases where it's necessary.
+         * But that'd also mean a lot of unnecessary works.
+         * Probably it just depends on the software (as a whole) that is being developed.
+         */
 
         //----------------------------------------------------------------------------------------
 

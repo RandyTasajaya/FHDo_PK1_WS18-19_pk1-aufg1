@@ -1,6 +1,9 @@
 package bibman.ui;
 
 import bibman.Buch;
+import bibman.DoppelterBibEintragException;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
@@ -24,6 +27,7 @@ public class BuchErfassungView extends ErfassungView {
         this.buch = (Buch)super.getEintrag();
     }
 
+    @Override
     public void showView() {
         Label titel = new Label("Titel:");
         Label autor = new Label("Autor:");
@@ -47,6 +51,42 @@ public class BuchErfassungView extends ErfassungView {
 
         Button ok = new Button("OK");
         Button abbrechen = new Button("Abbrechen");
+
+        ok.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                boolean inputResult = okButtonPressed(titelTF.getText(), autorTF.getText(), jahrTF.getText(), "buch");
+
+                if(inputResult) {
+                    BuchErfassungView.this.buch = (Buch)BuchErfassungView.super.getEintrag();
+
+                    // Gemäß vorherigen Praktika
+                    buch.setVerlag("Default-Verlag");
+                    buch.setIsbn("Default-ISBN");
+
+                    try {
+                        GUI.bibManager.hinzufuegen(buch);
+
+                        GUI.updateBibManager();
+
+                        DialogUtil.showMessageDialog("Buch hinzufügen - ERFOLGREICH!", "Das Buch wurde hinzugefügt!");
+                        close();
+                    }
+                    catch (DoppelterBibEintragException e) {
+                        DialogUtil.showErrorDialog("Buch hinzufügen - ERROR!", e.getMessage());
+                        close();
+                    }
+                }
+            }
+        });
+
+        abbrechen.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                close();
+            }
+        });
+
 
         /*
          * GRID PANE for everything above the buttons

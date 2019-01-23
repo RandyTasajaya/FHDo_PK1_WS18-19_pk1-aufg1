@@ -1,12 +1,6 @@
 package bibman;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.RandomAccessFile;
-import java.io.Serializable;
+import java.io.*;
 import java.util.*;
 
 public class BibManager extends Observable implements Serializable {
@@ -14,23 +8,26 @@ public class BibManager extends Observable implements Serializable {
     private List<BibEintrag> bibEintraege;
     private Map<Autor, Integer> autorsEintraege;
 
+    private int idHelperOfBibEintrag;
+
     private static final long serialVersionUID = 7024505680571386182L;
 
     public BibManager() {
         bibEintraege = new ArrayList<>();
         autorsEintraege = new HashMap<>();
+        idHelperOfBibEintrag = BibEintrag.getIdHelper();
     }
 
     public int getSize() {
         return bibEintraege.size();
     }
 
-    public List<BibEintrag> getBibEintraege() {
-        return bibEintraege;
-    }
-
     public BibEintrag getEintrag(int index) {
         return bibEintraege.get(index);
+    }
+
+    public int getIdHelperOfBibEintrag() {
+        return idHelperOfBibEintrag;
     }
 
     public Iterator<BibEintrag> iterator() {
@@ -39,6 +36,8 @@ public class BibManager extends Observable implements Serializable {
 
     public void hinzufuegen(BibEintrag eintrag)
             throws DoppelterBibEintragException {
+
+        this.idHelperOfBibEintrag = BibEintrag.getIdHelper();
 
         if(bibEintraege.contains(eintrag))
             throw new DoppelterBibEintragException("Dieser Bibeintrag: \"" + eintrag.getTitel() +
@@ -200,6 +199,22 @@ public class BibManager extends Observable implements Serializable {
                 }
             }
         }
+    }
+
+    public List<BibEintrag> getBibEintraege() {
+        return bibEintraege;
+    }
+
+    public void setBibEintraege(List<BibEintrag> bibEintraege) {
+        this.bibEintraege = bibEintraege;
+    }
+
+    public Map<Autor, Integer> getAutorsEintraege() {
+        return autorsEintraege;
+    }
+
+    public void setAutorsEintraege(Map<Autor, Integer> autorsEintraege) {
+        this.autorsEintraege = autorsEintraege;
     }
 
 }

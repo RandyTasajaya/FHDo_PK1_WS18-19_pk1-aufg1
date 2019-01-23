@@ -17,6 +17,7 @@ public class Webseite extends BibEintrag implements Serializable {
     }
 
     public Webseite() {
+        super();
     }
 
     public boolean isWebseite() {
@@ -41,7 +42,7 @@ public class Webseite extends BibEintrag implements Serializable {
     public String toString() {
         int realId = getId() + 1;
 
-        return "[ID " + realId + "] " + getAutor().getFullname() + ": \"" + getTitel() + "\", " + getJahr() + ". URL: " + getUrl() + "\n";
+        return "[ID " + realId + "] " + getAutor().getFullname() + ": \"" + getTitel() + "\", " + getJahr() + ". URL: " + getUrl();
     }
 
     @Override

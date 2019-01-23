@@ -19,6 +19,7 @@ public class Buch extends BibEintrag implements Primaerquelle, Serializable {
     }
 
     public Buch() {
+        super();
     }
 
     public boolean isWebseite() {
@@ -43,7 +44,7 @@ public class Buch extends BibEintrag implements Primaerquelle, Serializable {
     public String toString() {
         int realId = getId() + 1;
 
-        return "[ID " + realId + "] " + getAutor().getFullname() + ": \"" + getTitel() + "\". " + getVerlag() + ", " + getJahr() + " (ISBN: " + getIsbn() + ")" + "\n";
+        return "[ID " + realId + "] " + getAutor().getFullname() + ": \"" + getTitel() + "\". " + getVerlag() + ", " + getJahr() + " (ISBN: " + getIsbn() + ")";
     }
 
     public String erzeugeZitierschluessel() {

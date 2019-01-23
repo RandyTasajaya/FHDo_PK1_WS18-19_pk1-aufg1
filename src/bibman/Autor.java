@@ -26,6 +26,10 @@ public class Autor implements CsvExportable, Serializable {
 
     @Override
     public boolean equals(Object obj) {
+        if ((obj == null) || (getClass() != obj.getClass())) {
+            return false;
+        }
+
         Autor other = (Autor)obj;
         return vorname.equals(other.vorname) && nachname.equals(other.nachname);
     }
