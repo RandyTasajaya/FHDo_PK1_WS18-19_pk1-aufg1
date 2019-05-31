@@ -73,8 +73,10 @@ public class GUI extends Application {
          * For observing changes (of <wrapper> contents) of the <wrapper> object bibManager
          */
         bibManagerProperty.addListener(new ChangeListener<BibManager>() {
+
             @Override
             public void changed(ObservableValue<? extends BibManager> observable, BibManager oldValue, BibManager newValue) {
+
                 newValue.getBibEintraege().sort(new BibEintragComparator());
                 listProperty.set(FXCollections.observableArrayList(newValue.getBibEintraege()));
             }
